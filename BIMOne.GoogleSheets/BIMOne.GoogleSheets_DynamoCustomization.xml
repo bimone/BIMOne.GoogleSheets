@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>BIMOne.GoogleSheets</name>
+  </assembly>
+  <namespaces>
+    <namespace name="BIMOne.GoogleSheets">
+      <category>BIM One.GoogleSheets</category>
+    </namespace>
+  </namespaces>
+</doc>
