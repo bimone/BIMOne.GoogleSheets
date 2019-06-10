@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<doc>
+  <assembly>
+    <name>BIMOne.GoogleAPI</name>
+  </assembly>
+  <namespaces>
+    <!--Remap Namespaces-->
+    <namespace name="BIMOne">
+      <category>BIMOne</category>
+    </namespace>
+  </namespaces>
+  <classes>
+    <!--Remap Class Names-->
+    <class name="BIMOne.GoogleAPI" shortname="GoogleAPI"/>
+  </classes>
+</doc>

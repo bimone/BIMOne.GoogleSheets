@@ -7,8 +7,8 @@
     <ProjectGuid>{C16E92A8-9AF7-49AA-912D-2A290C2CBBD3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BIMOne.GoogleSheets</RootNamespace>
-    <AssemblyName>BIMOne.GoogleSheets</AssemblyName>
+    <RootNamespace>BIMOne.GoogleAPI</RootNamespace>
+    <AssemblyName>BIMOne.GoogleAPI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -69,6 +69,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drive.cs" />
+    <Compile Include="GoogleAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,13 +89,34 @@
     <None Include="pkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BIMOne.GoogleSheets_DynamoCustomization.xml">
+    <Content Include="BIMOne.GoogleAPI_DynamoCustomization.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\BIMOne.GoogleAPI.BIMOne.GoogleAPI.Large.png" />
+    <Content Include="Resources\BIMOne.GoogleAPI.BIMOne.GoogleAPI.Small.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BIMOneGoogleAPIImages.resx">
+      <LastGenOutput>BIMOneGoogleAPIImages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y "$(TargetDir)*.*" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
 xcopy /Y "$(ProjectDir)pkg.json" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)"</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="AfterBuild">
+    <!-- Get System.Drawing.dll -->
+    <GetReferenceAssemblyPaths TargetFrameworkMoniker=".NETFramework, Version=v4.6.1">
+      <Output TaskParameter="FullFrameworkReferenceAssemblyPaths" PropertyName="FrameworkAssembliesPath" />
+    </GetReferenceAssemblyPaths>
+    <!-- Get assembly -->
+    <GetAssemblyIdentity AssemblyFiles="$(OutDir)$(TargetName).dll">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyInfo" />
+    </GetAssemblyIdentity>
+    <!-- Generate customization dll -->
+    <GenerateResource SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" UseSourcePath="true" Sources="$(ProjectDir)\Resources\BIMOneGoogleAPIImages.resx" OutputResources="$(ProjectDir)\Resources\BIMOneGoogleAPIImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
+    <AL SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" TargetType="library" EmbedResources="$(ProjectDir)\Resources\BIMOneGoogleAPIImages.resources" OutputAssembly="$(OutDir)BIMOneGoogleAPI.customization.dll" Version="%(AssemblyInfo.Version)" />
+  </Target>
 </Project>
