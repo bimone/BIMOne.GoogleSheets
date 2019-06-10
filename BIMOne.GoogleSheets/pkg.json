@@ -1,9 +1,9 @@
 {
   "license": "",
   "file_hash": null,
-  "name": "BIM One - Google Sheets",
+  "name": "BIM One - Google API",
   "version": "0.0.1",
-  "description": "BIM One node to connect to google sheets",
+  "description": "BIM One nodes to connect to google API",
   "group": "",
   "keywords": null,
   "dependencies": [],
@@ -15,6 +15,6 @@
   "repository_url": "",
   "contains_binaries": true,
   "node_libraries": [
-    "BIMOne.GoogleSheets, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+    "BIMOne.GoogleAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
   ]
 }

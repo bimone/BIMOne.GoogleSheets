@@ -14,41 +14,36 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.DesignScript.Runtime;
 
-namespace BIMOne.GoogleSheets
+namespace BIMOne
 {
-    public static class Drive
+    public static class GoogleAPI
     {
         // If modifying these scopes, delete your previously saved credentials
         // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
         static string[] Scopes = { SheetsService.Scope.DriveReadonly, SheetsService.Scope.Spreadsheets };
         static string ApplicationName = "BIM One Google Sheets";
-        //static List<string> spreadsheetsList = new List<string>();
+        static string credentialsPath = String.Format("{0}{1}{2}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Dynamo\Dynamo Revit\2.0\packages\BIMOne.GoogleAPI\bin\", "credentials.json");
 
         [MultiReturn(new[] { "fileNames", "fileIds" })]
-        public static Dictionary<string, object> GetGoogleSpreadsheets(string filter)
+        public static Dictionary<string, object> GetGoogleSpreadsheets(string filter = "")
         {
             var fileNames = new List<string>();
             var fileIds= new List<string>();
-            //spreadsheetsList.Clear();
+
             UserCredential credential;
-            string credentialsPath = String.Format("{0}{1}{2}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Dynamo\Dynamo Revit\2.0\packages\BIMOne.GoogleSheets\bin\", "credentials.json");
 
             using (var stream =
                 new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
             {
-                // The file token.json stores the user's access and refresh tokens, and is created
-                // automatically when the authorization flow completes for the first time.
-                string credPath = "token.json";
+
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.Load(stream).Secrets,
                     Scopes,
                     "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-                Console.WriteLine("Credential file saved to: " + credPath);
+                    CancellationToken.None).Result;
             }
 
-            // Create Google Sheets API service.
+            // Create Google Drive API service.
             var service = new DriveService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
@@ -63,8 +58,6 @@ namespace BIMOne.GoogleSheets
             listRequest.Q = String.Format("mimeType='application/vnd.google-apps.spreadsheet' and name contains '{0}'", filter);
             listRequest.OrderBy = "name";
 
-
-
             // List files.
             IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
                 .Files;
@@ -73,7 +66,6 @@ namespace BIMOne.GoogleSheets
             {
                 foreach (var file in files)
                 {
-                    //spreadsheetsList.Add(String.Format("{0} ({1})", file.Name, file.Id));
                     fileNames.Add(file.Name);
                     fileIds.Add(file.Id);
                 }
@@ -82,38 +74,49 @@ namespace BIMOne.GoogleSheets
             {
                 fileNames.Add("No sheets found");
                 fileIds.Add("No sheets found");
-                //spreadsheetsList.Add("No sheets found");
             }
-            //return spreadsheetsList;
+
             var d = new Dictionary<string, object>();
             d.Add("fileNames", fileNames);
             d.Add("fileIds", fileIds);
             return d;
+        }
 
-            // Define request parameters.
-            //String spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-            //String range = "Class Data!A2:E";
-            //SpreadsheetsResource.ValuesResource.GetRequest request =
-            //        service.Spreadsheets.Values.Get(spreadsheetId, range);
+        [MultiReturn(new[] { "response" })]
+        public static Dictionary<string, object> WriteGoogleSheets(string spreadsheetId, string sheet, string range, List<IList<object>>data)
+        {
+            // Range format: SHEET:!A:F
+            range = $"{sheet}!{range}";
 
-            // Prints the names and majors of students in a sample spreadsheet:
-            // https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-            //ValueRange response = request.Execute();
-            //IList<IList<Object>> values = response.Values;
-            //if (values != null && values.Count > 0)
-            //{
-            //    rows.Add("Name, Major");
-            //    foreach (var row in values)
-            //    {
-            //        // Print columns A and E, which correspond to indices 0 and 4.
-            //        rows.Add(String.Format("{0}, {1}", row[0], row[4]));
-            //    }
-            //    return rows;
-            //}
-            //else
-            //{
-            //    return rows; 
-            //}
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+            {
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None).Result;
+            }
+
+            // Create Google Sheets API service.
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+            var valueRange = new ValueRange();
+            valueRange.Values = data;
+
+            var appendRequest = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
+            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            var appendReponse = appendRequest.Execute();
+
+            var d = new Dictionary<string, object>();
+            d.Add("response", appendReponse);
+            return d;
         }
     }
 }
