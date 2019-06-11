@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DynamoServices, Version=2.0.2.6986, Culture=neutral, processorArchitecture=MSIL">
@@ -103,7 +105,10 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(TargetDir)*.*" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
+    <PostBuildEvent>xcopy /Y "$(TargetDir)*.dll" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
+xcopy /Y "$(TargetDir)*.pdb" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
+xcopy /Y "$(TargetDir)*.xml" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
+xcopy /Y "$(TargetDir)credentials.json" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\extra\"
 xcopy /Y "$(ProjectDir)pkg.json" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
