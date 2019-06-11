@@ -319,5 +319,102 @@ namespace BIMOne
             d.Add("response", clearResponse.ClearedRange);
             return d;
         }
+
+        /// <summary>
+        /// Gets sheet title and ids in a Google Spreadsheet
+        /// </summary>
+        /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
+        /// <returns>sheetTitles</returns>
+        /// <returns>sheetIds</returns>
+        /// <search>
+        /// google, sheets, titles, ids
+        /// </search>
+        [MultiReturn(new[] { "sheetTitles", "sheetIds" })]
+        public static Dictionary<string, object> GetSheetsInSpreadsheet(string spreadsheetID)
+        {
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+            {
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None).Result;
+            }
+
+            // Create Google Sheets API service.
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+            SpreadsheetsResource.GetRequest request = service.Spreadsheets.Get(spreadsheetID);
+            var response = request.Execute();
+
+            var sheets = response.Sheets;
+            List<string> sheetTitles = new List<string>();
+            List<string> sheetIds = new List<string>();
+            foreach (Sheet sheet in sheets)
+            {
+                sheetTitles.Add(sheet.Properties.Title);
+                sheetIds.Add(sheet.Properties.SheetId.ToString());
+            }
+
+            var d = new Dictionary<string, object>();
+            d.Add("sheetTitles", sheetTitles);
+            d.Add("sheetIds", sheetIds);
+            return d;
+        }
+
+        [MultiReturn(new[] { "spreadsheetId", "sheetUrl" })]
+        public static Dictionary<string, object> CreateSpreadsheet(string spreadsheetTitle, bool openInBrowser = false)
+        {
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+            {
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None).Result;
+            }
+
+            // Create Google Sheets API service.
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+            var spreadsheet = new Google.Apis.Sheets.v4.Data.Spreadsheet();
+
+            spreadsheet.Properties = new SpreadsheetProperties();
+            spreadsheet.Properties.Title = spreadsheetTitle;
+
+            SpreadsheetsResource.CreateRequest request = service.Spreadsheets.Create(spreadsheet);
+
+            var response = request.Execute();
+
+            if(openInBrowser)
+            {
+                openLinkInBrowser(response.SpreadsheetUrl);
+            }
+            
+            var d = new Dictionary<string, object>();
+            d.Add("spreadsheetId", response.SpreadsheetId);
+            d.Add("sheetUrl", response.SpreadsheetUrl);
+            return d;
+        }
+
+        [IsVisibleInDynamoLibrary(false)]
+        static void openLinkInBrowser(string url)
+        {
+            System.Diagnostics.Process.Start(url);
+        }
     }
 }
