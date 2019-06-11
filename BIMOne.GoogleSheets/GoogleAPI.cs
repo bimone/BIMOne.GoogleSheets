@@ -22,9 +22,12 @@ namespace BIMOne
         // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
         static string[] Scopes = { SheetsService.Scope.DriveReadonly, SheetsService.Scope.Spreadsheets };
         static string ApplicationName = "BIM One Google Sheets";
-        static string credentialsPath = String.Format("{0}{1}{2}", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"\Dynamo\Dynamo Revit\2.0\packages\BIMOne.GoogleAPI\bin\", "credentials.json");
+        static string credentialsPath = String.Format(@"{0}\Dynamo\Dynamo Revit\2.0\packages\{1}\extra\{2}", 
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
+            System.Reflection.Assembly.GetCallingAssembly().GetName().Name, 
+            "credentials.json");
         
-        /// <summary>
+            /// <summary>
         /// Gets a list of Google Sheets present in a user's Google Drive with optional
         /// 'contains' keyword filter.
         /// </summary>
@@ -92,18 +95,19 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Writes a nested list of lists to a Google Spreadsheet
+        /// Appends a nested list of lists to a Google Spreadsheet
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
-        /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
-        /// <param name="data">A list of lists containing the data to write to Google Sheets.</param>
+        /// <param name="range">The range where to try and find a table, as string. Ex.: A:Z</param>
+        /// <param name="data">A list of lists containing the data to append to the table in Google Sheets.</param>
+        /// <param name="userInputModeRaw">If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).</param>
         /// <returns>response</returns>
         /// <search>
         /// google, sheets, drive, write
         /// </search>
         [MultiReturn(new[] { "response" })]
-        public static Dictionary<string, object> WriteGoogleSheets(string spreadsheetId, string sheet, string range, List<IList<object>>data)
+        public static Dictionary<string, object> AppendDataToGoogleSheetsTable(string spreadsheetId, string sheet, string range, List<IList<object>>data, bool userInputModeRaw = false)
         {
             // Range format: SHEET:!A:F
             range = $"{sheet}!{range}";
@@ -131,11 +135,188 @@ namespace BIMOne
             valueRange.Values = data;
 
             var appendRequest = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
-            appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
-            var appendReponse = appendRequest.Execute();
+          
+            if(userInputModeRaw)
+            {
+                appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.RAW;
+            }
+            else
+            {
+                appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
+            }
+            
+            var appendResponse = appendRequest.Execute();
 
             var d = new Dictionary<string, object>();
-            d.Add("response", appendReponse);
+            d.Add("response", appendResponse);
+            return d;
+        }
+
+        /// <summary>
+        /// Writes a nested list of lists to a Google Spreadsheet
+        /// </summary>
+        /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
+        /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
+        /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
+        /// <param name="data">A list of lists containing the data to write to Google Sheets.</param>
+        /// <param name="userInputModeRaw">If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).</param>
+        /// <returns>response</returns>
+        /// <search>
+        /// google, sheets, drive, write
+        /// </search>
+        [MultiReturn(new[] { "response" })]
+        public static Dictionary<string, object> WriteDataToGoogleSheets(string spreadsheetId, string sheet, string range, List<IList<object>> data, bool userInputModeRaw = false)
+        {
+            // Range format: SHEET:!A:F
+            range = $"{sheet}!{range}";
+
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+            {
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None).Result;
+            }
+
+            // Create Google Sheets API service.
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+            var valueRange = new ValueRange();
+            valueRange.Values = data;
+
+            var updateRequest = service.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
+
+            if (userInputModeRaw)
+            {
+                updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.RAW;
+            }
+            else
+            {
+                updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
+            }
+            
+            var updateResponse = updateRequest.Execute();
+
+            var d = new Dictionary<string, object>();
+            d.Add("response", updateResponse);
+            return d;
+        }
+
+        /// <summary>
+        /// Reads a specified range of a Google Spreadsheet
+        /// </summary>
+        /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
+        /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
+        /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
+        /// <param name="unformattedValues">If true, reads Google sheets as raw values.</param>
+        /// <returns>response</returns>
+        /// <search>
+        /// google, sheets, drive, read
+        /// </search>
+        [MultiReturn(new[] { "response" })]
+        public static Dictionary<string, object> ReadGoogleSheet(string spreadsheetId, string sheet, string range, bool unformattedValues = false)
+        {
+            // Range format: SHEET:!A:F
+            range = $"{sheet}!{range}";
+
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+            {
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None).Result;
+            }
+
+            // Create Google Sheets API service.
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+            // How values should be represented in the output.
+            // The default render option is ValueRenderOption.FORMATTED_VALUE.
+            SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum valueRenderOption;
+            if (unformattedValues)
+            {
+                valueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.UNFORMATTEDVALUE;
+            }
+            else
+            {
+                valueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.FORMATTEDVALUE;
+            }
+
+            // How dates, times, and durations should be represented in the output.
+            // This is ignored if value_render_option is
+            // FORMATTED_VALUE.
+            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
+            SpreadsheetsResource.ValuesResource.GetRequest.DateTimeRenderOptionEnum dateTimeRenderOption = 
+                SpreadsheetsResource.ValuesResource.GetRequest.DateTimeRenderOptionEnum.FORMATTEDSTRING; 
+
+            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(spreadsheetId, range);
+            request.ValueRenderOption = valueRenderOption;
+            request.DateTimeRenderOption = dateTimeRenderOption;
+
+            var getResponse = request.Execute();
+
+            var d = new Dictionary<string, object>();
+            d.Add("response", getResponse.Values);
+            return d;
+        }
+
+        /// <summary>
+        /// Clears values in the specified range of cells in a Google Sheet. Only values, not formatting.
+        /// </summary>
+        /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
+        /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
+        /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
+        /// <returns>response</returns>
+        /// <search>
+        /// google, sheets, clear, range
+        /// </search>
+        [MultiReturn(new[] { "response" })]
+        public static Dictionary<string, object> ClearValuesInRangeGoogleSheet(string spreadsheetId, string sheet, string range)
+        {
+            // Range format: SHEET:!A:F
+            range = $"{sheet}!{range}";
+
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+            {
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None).Result;
+            }
+
+            // Create Google Sheets API service.
+            var service = new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+
+            var requestBody = new Google.Apis.Sheets.v4.Data.ClearValuesRequest();
+            SpreadsheetsResource.ValuesResource.ClearRequest request = service.Spreadsheets.Values.Clear(requestBody, spreadsheetId, range);
+            var clearResponse = request.Execute();
+
+            var d = new Dictionary<string, object>();
+            d.Add("response", clearResponse.ClearedRange);
             return d;
         }
     }
