@@ -2,16 +2,11 @@
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 using Google.Apis.Drive.v3;
-using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
-using Google.Apis.Util.Store;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Autodesk.DesignScript.Runtime;
 
 namespace BIMOne
@@ -27,7 +22,46 @@ namespace BIMOne
             System.Reflection.Assembly.GetCallingAssembly().GetName().Name, 
             "credentials.json");
         
-            /// <summary>
+        static UserCredential credential;
+
+        static DriveService driveService { get => 
+            // Create Google Drive API service.
+            new DriveService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+        }
+        static SheetsService sheetsService { get => 
+            // Create Google Sheets API service.
+            new SheetsService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = ApplicationName,
+            });
+        }
+
+        [IsVisibleInDynamoLibrary(false)]
+        static GoogleAPI()
+        {
+            GetCredentials();
+        }
+
+        [IsVisibleInDynamoLibrary(false)]
+        static UserCredential GetCredentials()
+        {
+            using (var stream =
+                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+            {
+                return credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None).Result;
+            }
+        }
+
+        /// <summary>
         /// Gets a list of Google Sheets present in a user's Google Drive with optional
         /// 'contains' keyword filter.
         /// </summary>
@@ -42,29 +76,9 @@ namespace BIMOne
             var fileNames = new List<string>();
             var fileIds= new List<string>();
 
-            UserCredential credential;
-
-            using (var stream =
-                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
-            {
-
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None).Result;
-            }
-
-            // Create Google Drive API service.
-            var service = new DriveService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
             // Get all spreadsheets from drive
             // Define parameters of request.
-            FilesResource.ListRequest listRequest = service.Files.List();
+            FilesResource.ListRequest listRequest = driveService.Files.List();
             listRequest.PageSize = 1000;
             listRequest.Fields = "nextPageToken, files(id, name)";
             listRequest.Q = String.Format("mimeType='application/vnd.google-apps.spreadsheet' and name contains '{0}'", filter);
@@ -112,29 +126,10 @@ namespace BIMOne
             // Range format: SHEET:!A:F
             range = $"{sheet}!{range}";
 
-            UserCredential credential;
-
-            using (var stream =
-                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
-            {
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None).Result;
-            }
-
-            // Create Google Sheets API service.
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
             var valueRange = new ValueRange();
             valueRange.Values = data;
 
-            var appendRequest = service.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
+            var appendRequest = sheetsService.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
           
             if(userInputModeRaw)
             {
@@ -170,29 +165,10 @@ namespace BIMOne
             // Range format: SHEET:!A:F
             range = $"{sheet}!{range}";
 
-            UserCredential credential;
-
-            using (var stream =
-                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
-            {
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None).Result;
-            }
-
-            // Create Google Sheets API service.
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
             var valueRange = new ValueRange();
             valueRange.Values = data;
 
-            var updateRequest = service.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
+            var updateRequest = sheetsService.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
 
             if (userInputModeRaw)
             {
@@ -217,34 +193,15 @@ namespace BIMOne
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
         /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
         /// <param name="unformattedValues">If true, reads Google sheets as raw values.</param>
-        /// <returns>response</returns>
+        /// <returns>data</returns>
         /// <search>
         /// google, sheets, drive, read
         /// </search>
-        [MultiReturn(new[] { "response" })]
+        [MultiReturn(new[] { "data" })]
         public static Dictionary<string, object> ReadGoogleSheet(string spreadsheetId, string sheet, string range, bool unformattedValues = false)
         {
             // Range format: SHEET:!A:F
             range = $"{sheet}!{range}";
-
-            UserCredential credential;
-
-            using (var stream =
-                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
-            {
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None).Result;
-            }
-
-            // Create Google Sheets API service.
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
 
             // How values should be represented in the output.
             // The default render option is ValueRenderOption.FORMATTED_VALUE.
@@ -265,14 +222,14 @@ namespace BIMOne
             SpreadsheetsResource.ValuesResource.GetRequest.DateTimeRenderOptionEnum dateTimeRenderOption = 
                 SpreadsheetsResource.ValuesResource.GetRequest.DateTimeRenderOptionEnum.FORMATTEDSTRING; 
 
-            SpreadsheetsResource.ValuesResource.GetRequest request = service.Spreadsheets.Values.Get(spreadsheetId, range);
+            SpreadsheetsResource.ValuesResource.GetRequest request = sheetsService.Spreadsheets.Values.Get(spreadsheetId, range);
             request.ValueRenderOption = valueRenderOption;
             request.DateTimeRenderOption = dateTimeRenderOption;
 
             var getResponse = request.Execute();
 
             var d = new Dictionary<string, object>();
-            d.Add("response", getResponse.Values);
+            d.Add("data", getResponse.Values);
             return d;
         }
 
@@ -292,27 +249,8 @@ namespace BIMOne
             // Range format: SHEET:!A:F
             range = $"{sheet}!{range}";
 
-            UserCredential credential;
-
-            using (var stream =
-                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
-            {
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None).Result;
-            }
-
-            // Create Google Sheets API service.
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
             var requestBody = new Google.Apis.Sheets.v4.Data.ClearValuesRequest();
-            SpreadsheetsResource.ValuesResource.ClearRequest request = service.Spreadsheets.Values.Clear(requestBody, spreadsheetId, range);
+            SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(requestBody, spreadsheetId, range);
             var clearResponse = request.Execute();
 
             var d = new Dictionary<string, object>();
@@ -332,26 +270,7 @@ namespace BIMOne
         [MultiReturn(new[] { "sheetTitles", "sheetIds" })]
         public static Dictionary<string, object> GetSheetsInSpreadsheet(string spreadsheetID)
         {
-            UserCredential credential;
-
-            using (var stream =
-                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
-            {
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None).Result;
-            }
-
-            // Create Google Sheets API service.
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
-            SpreadsheetsResource.GetRequest request = service.Spreadsheets.Get(spreadsheetID);
+            SpreadsheetsResource.GetRequest request = sheetsService.Spreadsheets.Get(spreadsheetID);
             var response = request.Execute();
 
             var sheets = response.Sheets;
@@ -372,31 +291,12 @@ namespace BIMOne
         [MultiReturn(new[] { "spreadsheetId", "sheetUrl" })]
         public static Dictionary<string, object> CreateSpreadsheet(string spreadsheetTitle, bool openInBrowser = false)
         {
-            UserCredential credential;
-
-            using (var stream =
-                new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
-            {
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None).Result;
-            }
-
-            // Create Google Sheets API service.
-            var service = new SheetsService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
-            });
-
-            var spreadsheet = new Google.Apis.Sheets.v4.Data.Spreadsheet();
+            var spreadsheet = new Spreadsheet();
 
             spreadsheet.Properties = new SpreadsheetProperties();
             spreadsheet.Properties.Title = spreadsheetTitle;
 
-            SpreadsheetsResource.CreateRequest request = service.Spreadsheets.Create(spreadsheet);
+            SpreadsheetsResource.CreateRequest request = sheetsService.Spreadsheets.Create(spreadsheet);
 
             var response = request.Execute();
 
