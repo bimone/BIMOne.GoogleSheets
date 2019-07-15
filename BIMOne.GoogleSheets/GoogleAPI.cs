@@ -278,6 +278,72 @@ namespace BIMOne
         }
 
         /// <summary>
+        /// Reads multiple specified ranges of a Google Spreadsheet.
+        /// </summary>
+        /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
+        /// <param name="ranges">A list of ranges where to read the data from as string. Ex.: Sheet1!A:Z, Sheet2!A:Z, ...</param>
+        /// <param name="unformattedValues">If true, reads Google sheets as raw values.</param>
+        /// <returns>data</returns>
+        /// <search>
+        /// google, sheets, drive, read
+        /// </search>
+        [MultiReturn(new[] { "ranges", "values" })]
+        public static Dictionary<string, object> ReadGoogleSheetMultipleRanges(string spreadsheetId, List<string> ranges, bool unformattedValues = false)
+        {
+            if (ranges == null || ranges.Count < 1)
+            {
+                // Default to all sheets
+                SpreadsheetsResource.GetRequest sheetRequest = sheetsService.Spreadsheets.Get(spreadsheetId);
+                var response = sheetRequest.Execute();
+
+                var sheets = response.Sheets;
+
+                foreach (Sheet sheet in sheets)
+                {
+                    ranges.Add(sheet.Properties.Title);
+                }
+            }
+            // How values should be represented in the output.
+            // The default render option is ValueRenderOption.FORMATTED_VALUE.
+            SpreadsheetsResource.ValuesResource.BatchGetRequest.ValueRenderOptionEnum valueRenderOption;
+            if (unformattedValues)
+            {
+                valueRenderOption = SpreadsheetsResource.ValuesResource.BatchGetRequest.ValueRenderOptionEnum.UNFORMATTEDVALUE;
+            }
+            else
+            {
+                valueRenderOption = SpreadsheetsResource.ValuesResource.BatchGetRequest.ValueRenderOptionEnum.FORMATTEDVALUE;
+            }
+
+            // How dates, times, and durations should be represented in the output.
+            // This is ignored if value_render_option is
+            // FORMATTED_VALUE.
+            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
+            SpreadsheetsResource.ValuesResource.BatchGetRequest.DateTimeRenderOptionEnum dateTimeRenderOption =
+                SpreadsheetsResource.ValuesResource.BatchGetRequest.DateTimeRenderOptionEnum.FORMATTEDSTRING;
+
+            SpreadsheetsResource.ValuesResource.BatchGetRequest request = sheetsService.Spreadsheets.Values.BatchGet(spreadsheetId);
+            request.Ranges = ranges;
+            request.ValueRenderOption = valueRenderOption;
+            request.DateTimeRenderOption = dateTimeRenderOption;
+
+            BatchGetValuesResponse getResponse = request.Execute();
+
+            var d = new Dictionary<string, object>();
+            List<object> values = new List<object>();
+            List<object> returnedRanges = new List<object>();
+
+            foreach (var item in getResponse.ValueRanges)
+            {
+                values.Add(item.Values);
+                returnedRanges.Add(item.Range);
+            }
+            d.Add("ranges", returnedRanges);
+            d.Add("values", values);
+            return d;
+        }
+
+        /// <summary>
         /// Clears values in the specified range of cells in a Google Sheet. Only values, not formatting.
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
