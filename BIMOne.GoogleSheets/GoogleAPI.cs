@@ -116,22 +116,23 @@ namespace BIMOne
         /// <param name="range">The range where to try and find a table, as string. Ex.: A:Z</param>
         /// <param name="data">A list of lists containing the data to append to the table in Google Sheets.</param>
         /// <param name="userInputModeRaw">If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).</param>
-        /// <returns>response</returns>
+        /// <param name="includeValuesInResponse">If true, returns the updated/appended data in the response.</param>
+        /// <returns>"spreadsheetID", "updatedValues", "range"</returns>
         /// <search>
         /// google, sheets, drive, write
         /// </search>
-        [MultiReturn(new[] { "response" })]
-        public static Dictionary<string, object> AppendDataToGoogleSheetsTable(string spreadsheetId, string sheet, string range, List<IList<object>>data, bool userInputModeRaw = false)
+        [MultiReturn(new[] { "spreadsheetID", "updatedValues", "range" })]
+        public static Dictionary<string, object> AppendDataToGoogleSheetsTable(string spreadsheetId, string sheet, string range, List<IList<object>>data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
         {
-            // Range format: SHEET:!A:F
-            range = $"{sheet}!{range}";
+            range = formatRange(sheet, range);
 
             var valueRange = new ValueRange();
             valueRange.Values = data;
 
             var appendRequest = sheetsService.Spreadsheets.Values.Append(valueRange, spreadsheetId, range);
-          
-            if(userInputModeRaw)
+            appendRequest.IncludeValuesInResponse = includeValuesInResponse;
+
+            if (userInputModeRaw)
             {
                 appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.RAW;
             }
@@ -141,9 +142,22 @@ namespace BIMOne
             }
             
             var appendResponse = appendRequest.Execute();
-
+ 
             var d = new Dictionary<string, object>();
-            d.Add("response", appendResponse);
+            d.Add("spreadsheetID", appendResponse.SpreadsheetId);
+            
+            if (includeValuesInResponse)
+            {
+                var updatedValues = appendResponse.Updates.UpdatedData;
+                d.Add("updatedValues", updatedValues.Values);
+                d.Add("range", updatedValues.Range);
+            }
+            else
+            {
+                d.Add("updatedValues", "");
+                d.Add("range", "");
+            }
+
             return d;
         }
 
@@ -155,20 +169,40 @@ namespace BIMOne
         /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
         /// <param name="data">A list of lists containing the data to write to Google Sheets.</param>
         /// <param name="userInputModeRaw">If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).</param>
-        /// <returns>response</returns>
+        /// <param name="includeValuesInResponse">If true, returns the updated/appended data in the response.</param>
+        /// <returns>"spreadsheetID", "updatedValues", "range"</returns>
         /// <search>
         /// google, sheets, drive, write
         /// </search>
-        [MultiReturn(new[] { "response" })]
-        public static Dictionary<string, object> WriteDataToGoogleSheets(string spreadsheetId, string sheet, string range, List<IList<object>> data, bool userInputModeRaw = false)
+        [MultiReturn(new[] { "spreadsheetID", "updatedValues", "range" })]
+        public static Dictionary<string, object> WriteDataToGoogleSheets(string spreadsheetId, string sheet, string range, List<IList<object>> data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
         {
-            // Range format: SHEET:!A:F
-            range = $"{sheet}!{range}";
+            range = formatRange(sheet, range);
 
             var valueRange = new ValueRange();
             valueRange.Values = data;
 
+            SpreadsheetsResource.GetRequest getRequest = sheetsService.Spreadsheets.Get(spreadsheetId);
+            var response = getRequest.Execute();
+            var sheets = response.Sheets;
+
+            bool sheetExists = false;
+            foreach (var item in sheets)
+            {
+                if(item.Properties.Title == sheet)
+                {
+                    sheetExists = true;
+                    break;
+                }
+            }
+
+            if (!sheetExists)
+            {
+                var createSheetResponse = CreateSheet(spreadsheetId, sheet);
+            }
+
             var updateRequest = sheetsService.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
+            updateRequest.IncludeValuesInResponse = includeValuesInResponse;
 
             if (userInputModeRaw)
             {
@@ -182,7 +216,18 @@ namespace BIMOne
             var updateResponse = updateRequest.Execute();
 
             var d = new Dictionary<string, object>();
-            d.Add("response", updateResponse);
+            d.Add("spreadsheetID", updateResponse.SpreadsheetId);
+            if (includeValuesInResponse)
+            {
+                var updatedValues = updateResponse.UpdatedData;
+                d.Add("updatedValues", updatedValues.Values);
+            }
+            else
+            {
+                d.Add("updatedValues", "");
+            }
+            d.Add("range", updateResponse.UpdatedRange);
+
             return d;
         }
 
@@ -200,8 +245,7 @@ namespace BIMOne
         [MultiReturn(new[] { "data" })]
         public static Dictionary<string, object> ReadGoogleSheet(string spreadsheetId, string sheet, string range, bool unformattedValues = false)
         {
-            // Range format: SHEET:!A:F
-            range = $"{sheet}!{range}";
+            range = formatRange(sheet, range);
 
             // How values should be represented in the output.
             // The default render option is ValueRenderOption.FORMATTED_VALUE.
@@ -239,22 +283,22 @@ namespace BIMOne
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
         /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
-        /// <returns>response</returns>
+        /// <returns>clearedRange</returns>
         /// <search>
         /// google, sheets, clear, range
         /// </search>
-        [MultiReturn(new[] { "response" })]
+        [MultiReturn(new[] { "clearedRange" })]
         public static Dictionary<string, object> ClearValuesInRangeGoogleSheet(string spreadsheetId, string sheet, string range)
         {
             // Range format: SHEET:!A:F
             range = $"{sheet}!{range}";
 
-            var requestBody = new Google.Apis.Sheets.v4.Data.ClearValuesRequest();
+            var requestBody = new ClearValuesRequest();
             SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(requestBody, spreadsheetId, range);
             var clearResponse = request.Execute();
 
             var d = new Dictionary<string, object>();
-            d.Add("response", clearResponse.ClearedRange);
+            d.Add("clearedRange", clearResponse.ClearedRange);
             return d;
         }
 
@@ -288,6 +332,51 @@ namespace BIMOne
             return d;
         }
 
+        /// <summary>
+        /// Create a new sheet within a spreadsheet.
+        /// </summary>
+        /// <param name="spreadsheetID">The ID of the Spreadsheet (long unique identifier as string)</param>
+        /// <param name="newSheetTitle">The title of the new sheet</param>
+        /// <returns>sheetTitle</returns>
+        /// <returns>spreadsheetId</returns>
+        /// <search>
+        /// google, sheets, titles, ids, create
+        /// </search>
+        [MultiReturn(new[] { "sheetTitle", "spreadsheetId" })]
+        public static Dictionary<string, object> CreateSheet(string spreadsheetID, string newSheetTitle)
+        {
+            AddSheetRequest addSheetRequest = new AddSheetRequest();
+            addSheetRequest.Properties = new SheetProperties();
+            addSheetRequest.Properties.Title = newSheetTitle;
+
+            BatchUpdateSpreadsheetRequest requestBody = new BatchUpdateSpreadsheetRequest();
+            List<Request> requests = new List<Request>();
+            requestBody.Requests = requests;
+            requestBody.Requests.Add(new Request
+            {
+                AddSheet = addSheetRequest
+            });
+
+            SpreadsheetsResource.BatchUpdateRequest batchRequest = sheetsService.Spreadsheets.BatchUpdate(requestBody, spreadsheetID);
+
+            BatchUpdateSpreadsheetResponse response = batchRequest.Execute();
+
+            var d = new Dictionary<string, object>();
+            d.Add("sheetTitle", newSheetTitle);
+            d.Add("spreadsheetId", response.SpreadsheetId);
+            return d;
+        }
+
+        /// <summary>
+        /// Create a new spreadsheet.
+        /// </summary>
+        /// <param name="spreadsheetTitle">The title of the Spreadsheet</param>
+        /// <param name="openInBrowser">Whether or not to open in browser afer successful creation.</param>
+        /// <returns>spreadsheetId</returns>
+        /// <returns>sheetUrl</returns>
+        /// <search>
+        /// google, sheets, title, create, spreadsheet
+        /// </search>
         [MultiReturn(new[] { "spreadsheetId", "sheetUrl" })]
         public static Dictionary<string, object> CreateSpreadsheet(string spreadsheetTitle, bool openInBrowser = false)
         {
@@ -315,6 +404,21 @@ namespace BIMOne
         static void openLinkInBrowser(string url)
         {
             System.Diagnostics.Process.Start(url);
+        }
+
+        [IsVisibleInDynamoLibrary(false)]
+        static string formatRange(string sheet, string range)
+        {
+            // Range format: SHEET:!A:F
+            if (range == "")
+            {
+                // Default to columns A through ZZ
+                return $"{sheet}!A:ZZ";
+            }
+            else
+            {
+                return $"{sheet}!{range}";
+            }
         }
     }
 }
