@@ -1,0 +1,1032 @@
+{
+  "Uuid": "42b05eb1-44dc-4a50-9673-27b5b6b9513d",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "GoogleSheetAPITest",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.GetGoogleSpreadsheets@string",
+      "Id": "6340416194e34c8d8f2b84db5f7a6136",
+      "Inputs": [
+        {
+          "Id": "591ac8a842f04950a3c2fa6abc23d7ea",
+          "Name": "filter",
+          "Description": "string\nDefault value : \"\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4ddfa7dd5cfb48a59609ec6cc730f202",
+          "Name": "fileNames",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9719728cda004df3bd3595d4aca1976d",
+          "Name": "fileIds",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.GetGoogleSpreadsheets (filter: string = \"\"): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "estimation",
+      "Id": "d7af16d01368452688ce371388977269",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "546a713706d840bcbf9a8e071eda56fe",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "item[1];",
+      "Id": "66deaf874cd84059998f61403670829b",
+      "Inputs": [
+        {
+          "Id": "08fa43a575f54caca703d5850bb7ce27",
+          "Name": "item",
+          "Description": "item",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7f24240c6f594f728432b5f956b9d806",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.GetSheetsInSpreadsheet@string",
+      "Id": "982a5ef035644c76939a06e3b696d776",
+      "Inputs": [
+        {
+          "Id": "2edca57326da494881df6f0d0ce9b2db",
+          "Name": "spreadsheetID",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d07f6a5e6a874d72880bd28b1f26a4b8",
+          "Name": "sheetTitles",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "825fd57e91724587b6a1faaacc09f454",
+          "Name": "sheetIds",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.GetSheetsInSpreadsheet (spreadsheetID: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.ReadGoogleSheet@string,string,string,bool",
+      "Id": "e96e3705377a4c4b9fe5b9903d822574",
+      "Inputs": [
+        {
+          "Id": "f7e191b4cbd24796b519604925fc6e09",
+          "Name": "spreadsheetId",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ea1c2ffd53354946ae83e49a33dc3b56",
+          "Name": "sheet",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "0aea706a325249079f7f80163c552511",
+          "Name": "range",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "97185c11f0144c1b83ac489694914e0a",
+          "Name": "unformattedValues",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "6666acd1e84c496491565306b0ee0646",
+          "Name": "data",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.ReadGoogleSheet (spreadsheetId: string, sheet: string, range: string, unformattedValues: bool = false): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "A:AA",
+      "Id": "5d9a9ebbbb6a4816ac186aaf6795d069",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e308788c13694d1a90408e547a403d41",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.AppendDataToGoogleSheetsTable@string,string,string,var[][],bool,bool",
+      "Id": "6a66b3a806874462af22d02e3753f49e",
+      "Inputs": [
+        {
+          "Id": "e4fab04a0de14e09b6ed9d18b6c118f0",
+          "Name": "spreadsheetId",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "cff9805721344e7abb81ea911d8cac19",
+          "Name": "sheet",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d0d6bc8ee5b5424ea60687fd3a7bac3b",
+          "Name": "range",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a43c1f5a1733432fa37a81b71841c35a",
+          "Name": "data",
+          "Description": "var[][]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "921348a3869d4e5cb0e5e9519814958f",
+          "Name": "userInputModeRaw",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bf5a7eb708dd4957b8a8ad72a660aa0c",
+          "Name": "includeValuesInResponse",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "eaa6364a5bf34543b26046f764c6b5e7",
+          "Name": "spreadsheetID",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ba6beb3730164065b50a3db7c73af174",
+          "Name": "updatedValues",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "020d4b0d63c44d0fb5ed3672f4a5d3cf",
+          "Name": "range",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.AppendDataToGoogleSheetsTable (spreadsheetId: string, sheet: string, range: string, data: var[][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "b2c95947ec7a48c6a8aca482a4070955",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "0d9ca13c6c904630945aff4393c23d2f",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "TEST123",
+      "Id": "7b5a13cdf16b422eacfe5da9ba7a0dfb",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a279ea8fb84a4715aeb11ac52869aaa1",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.WriteDataToGoogleSheets@string,string,string,var[][],bool,bool",
+      "Id": "e75e2bf545d342109d38894052376b4d",
+      "Inputs": [
+        {
+          "Id": "90af616a33154845bb4aa0c9d88e0b54",
+          "Name": "spreadsheetId",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "cb130cf2fe3541cf9aa826780169dbb0",
+          "Name": "sheet",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a6fdfa56b7bf4e36a7f2986ff9431a06",
+          "Name": "range",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d90fb8ffe17b4235ad5d76f604dab7ba",
+          "Name": "data",
+          "Description": "var[][]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6db17ed69ec64032819202d5908ade67",
+          "Name": "userInputModeRaw",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e382ab890005401da30dab565bde838d",
+          "Name": "includeValuesInResponse",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5c015561d7e140f78f4215116bcec135",
+          "Name": "spreadsheetID",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9baab756ce544abbb07c1895bc7cd8b6",
+          "Name": "updatedValues",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "3ef20ca0f784496fbe0157af81d7c495",
+          "Name": "range",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.WriteDataToGoogleSheets (spreadsheetId: string, sheet: string, range: string, data: var[][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "TEST_NEW",
+      "Id": "c917cc9c902a4e95897c7fc2e44b6478",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "40a17aca70c44c899f860cc3d0820bd0",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.ClearValuesInRangeGoogleSheet@string,string,string",
+      "Id": "80871ee96ca94e34a768d2fe8a9b75f8",
+      "Inputs": [
+        {
+          "Id": "b4e7b664f84944c09febe3a6dd710eeb",
+          "Name": "spreadsheetId",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "507e84c8eeb14af28912fe858fa6ff8b",
+          "Name": "sheet",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "55f7a562bf3345c6b8cd3f23d5ed0bd9",
+          "Name": "range",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "0443ee11a0b74e6c8d7862bb6709693d",
+          "Name": "clearedRange",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.ClearValuesInRangeGoogleSheet (spreadsheetId: string, sheet: string, range: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.CreateSheet@string,string",
+      "Id": "de1e243b71ca4eb2bd940faba3afd7c1",
+      "Inputs": [
+        {
+          "Id": "03c8667e278e470da39fe5c2e5da7bfb",
+          "Name": "spreadsheetID",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5a9ba81479a4426d82a3149fa6163b79",
+          "Name": "newSheetTitle",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "289f4b61116d422196ab7328c9bc8111",
+          "Name": "sheetTitle",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "98b26435ab6b4ca18d796cc88fe1ed42",
+          "Name": "spreadsheetId",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.CreateSheet (spreadsheetID: string, newSheetTitle: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.CreateSpreadsheet@string,bool",
+      "Id": "cc0365b3536d497bb1faa07ad1d975e8",
+      "Inputs": [
+        {
+          "Id": "e32c7b409472434890646377a4a30ac2",
+          "Name": "spreadsheetTitle",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9c7f1aa8d16040519cea485c172a40e8",
+          "Name": "openInBrowser",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c91f961d257b4a918094507d23b87df3",
+          "Name": "spreadsheetId",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c1e1f5a37466426a8160e7c9426ff7c2",
+          "Name": "sheetUrl",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.CreateSpreadsheet (spreadsheetTitle: string, openInBrowser: bool = false): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.ReadGoogleSheetMultipleRanges@string,string[],bool",
+      "Id": "e2b4367de7cc44e99224375277cbd4ed",
+      "Inputs": [
+        {
+          "Id": "d795276d0dfb434d8dfc3082c6a6cd60",
+          "Name": "spreadsheetId",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5918d2c0fa854fd3875a2cc0a6a5aa67",
+          "Name": "ranges",
+          "Description": "string[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "63e88f30eb6c456d9ad5c4bad21d646d",
+          "Name": "unformattedValues",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "ad4439ad72c54650817ca82cd9a74f8b",
+          "Name": "ranges",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "40f3507c28b34e7a93406cde5595dd64",
+          "Name": "values",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "GoogleAPI.ReadGoogleSheetMultipleRanges (spreadsheetId: string, ranges: string[], unformattedValues: bool = false): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[\"Résumé client\", \"1 - Préliminaire\"];",
+      "Id": "64f3cd9b2df649408c50376883315f4d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8248a09bef664472962d248c48594ccc",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "[];",
+      "Id": "d9b7bae8ef5047e4b03dd18e5b76801f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "2429fc92dc504dfe95254d88ba227c6c",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "9719728cda004df3bd3595d4aca1976d",
+      "End": "08fa43a575f54caca703d5850bb7ce27",
+      "Id": "a6b4c69c9271454e9bba75e8e708b82a"
+    },
+    {
+      "Start": "546a713706d840bcbf9a8e071eda56fe",
+      "End": "591ac8a842f04950a3c2fa6abc23d7ea",
+      "Id": "6bb5310c5ef641d9b5b724d3bd6b9d1e"
+    },
+    {
+      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "End": "2edca57326da494881df6f0d0ce9b2db",
+      "Id": "1139303f644c4f919c31af49a0700ec2"
+    },
+    {
+      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "End": "f7e191b4cbd24796b519604925fc6e09",
+      "Id": "3592db21912545729838af638af14f48"
+    },
+    {
+      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "End": "e4fab04a0de14e09b6ed9d18b6c118f0",
+      "Id": "64b4d681c80044539126ef8d12c8ff83"
+    },
+    {
+      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "End": "90af616a33154845bb4aa0c9d88e0b54",
+      "Id": "fe38ec77afcb457392d7863aab0c70e3"
+    },
+    {
+      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "End": "b4e7b664f84944c09febe3a6dd710eeb",
+      "Id": "7c995da0016e4119be093f4cee5b91e1"
+    },
+    {
+      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "End": "03c8667e278e470da39fe5c2e5da7bfb",
+      "Id": "61aa37654e284a21b3c991c7ce1afda9"
+    },
+    {
+      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "End": "d795276d0dfb434d8dfc3082c6a6cd60",
+      "Id": "bf68eb562ad04721bfa13d155a3f3b1d"
+    },
+    {
+      "Start": "d07f6a5e6a874d72880bd28b1f26a4b8",
+      "End": "ea1c2ffd53354946ae83e49a33dc3b56",
+      "Id": "8e57c07b064242ad9d5a9a61fffde87a"
+    },
+    {
+      "Start": "d07f6a5e6a874d72880bd28b1f26a4b8",
+      "End": "cff9805721344e7abb81ea911d8cac19",
+      "Id": "e07870f3a071422db2974ae171cda9c7"
+    },
+    {
+      "Start": "e308788c13694d1a90408e547a403d41",
+      "End": "0aea706a325249079f7f80163c552511",
+      "Id": "a0d083d54d2f401fafa6d8b71b37afaf"
+    },
+    {
+      "Start": "e308788c13694d1a90408e547a403d41",
+      "End": "d0d6bc8ee5b5424ea60687fd3a7bac3b",
+      "Id": "e9782029ec6a4003a1e6c8e0c94bd240"
+    },
+    {
+      "Start": "e308788c13694d1a90408e547a403d41",
+      "End": "a6fdfa56b7bf4e36a7f2986ff9431a06",
+      "Id": "887d4a87702a4a9bb8213c8b63ac1176"
+    },
+    {
+      "Start": "e308788c13694d1a90408e547a403d41",
+      "End": "55f7a562bf3345c6b8cd3f23d5ed0bd9",
+      "Id": "34032edf42b94bc4a036945f91fa65c6"
+    },
+    {
+      "Start": "0d9ca13c6c904630945aff4393c23d2f",
+      "End": "bf5a7eb708dd4957b8a8ad72a660aa0c",
+      "Id": "4c8487d8478c462fb1b57aaa3ae62cc5"
+    },
+    {
+      "Start": "0d9ca13c6c904630945aff4393c23d2f",
+      "End": "e382ab890005401da30dab565bde838d",
+      "Id": "2691560d5606422cb9222a041284e830"
+    },
+    {
+      "Start": "0d9ca13c6c904630945aff4393c23d2f",
+      "End": "9c7f1aa8d16040519cea485c172a40e8",
+      "Id": "e74080176c3047f19c1b83715d3c3b99"
+    },
+    {
+      "Start": "a279ea8fb84a4715aeb11ac52869aaa1",
+      "End": "a43c1f5a1733432fa37a81b71841c35a",
+      "Id": "11cd985ee3b04f3d9050d24d140d6ed9"
+    },
+    {
+      "Start": "a279ea8fb84a4715aeb11ac52869aaa1",
+      "End": "d90fb8ffe17b4235ad5d76f604dab7ba",
+      "Id": "3e9169add1e840f481d73d7ce8d82db7"
+    },
+    {
+      "Start": "40a17aca70c44c899f860cc3d0820bd0",
+      "End": "cb130cf2fe3541cf9aa826780169dbb0",
+      "Id": "2ebdacc5e64546bbb9b44a3c494981ab"
+    },
+    {
+      "Start": "40a17aca70c44c899f860cc3d0820bd0",
+      "End": "507e84c8eeb14af28912fe858fa6ff8b",
+      "Id": "15f9d9e3d3f341339f0697fbe03740da"
+    },
+    {
+      "Start": "40a17aca70c44c899f860cc3d0820bd0",
+      "End": "5a9ba81479a4426d82a3149fa6163b79",
+      "Id": "c16178df4c774dff96da83616055f188"
+    },
+    {
+      "Start": "40a17aca70c44c899f860cc3d0820bd0",
+      "End": "e32c7b409472434890646377a4a30ac2",
+      "Id": "30f7b98ac32c42d0a667f06fe7b8daf4"
+    },
+    {
+      "Start": "2429fc92dc504dfe95254d88ba227c6c",
+      "End": "5918d2c0fa854fd3875a2cc0a6a5aa67",
+      "Id": "5ee2a1ca63de4c9a9b5406987de7717f"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.3.8810",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.GetGoogleSpreadsheets",
+        "Id": "6340416194e34c8d8f2b84db5f7a6136",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 343.5,
+        "Y": 151.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "d7af16d01368452688ce371388977269",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 166.0,
+        "Y": 139.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "66deaf874cd84059998f61403670829b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 618.0,
+        "Y": 225.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.GetSheetsInSpreadsheet",
+        "Id": "982a5ef035644c76939a06e3b696d776",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 903.21197619919974,
+        "Y": 204.38187227454654
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "GoogleAPI.ReadGoogleSheet",
+        "Id": "e96e3705377a4c4b9fe5b9903d822574",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 1732.49828389426,
+        "Y": 976.40882339069367
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "5d9a9ebbbb6a4816ac186aaf6795d069",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1159.218305344288,
+        "Y": 637.17802547246924
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.AppendDataToGoogleSheetsTable",
+        "Id": "6a66b3a806874462af22d02e3753f49e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 1681.669770250533,
+        "Y": 246.66672509840714
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "b2c95947ec7a48c6a8aca482a4070955",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1234.8864890024893,
+        "Y": 1041.6166291154875
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "7b5a13cdf16b422eacfe5da9ba7a0dfb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 955.27689376739693,
+        "Y": 922.56410614429592
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.WriteDataToGoogleSheets",
+        "Id": "e75e2bf545d342109d38894052376b4d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 1716.0650245206803,
+        "Y": 1190.2572555277379
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "c917cc9c902a4e95897c7fc2e44b6478",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1080.6938567779625,
+        "Y": 1341.5838213269549
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.ClearValuesInRangeGoogleSheet",
+        "Id": "80871ee96ca94e34a768d2fe8a9b75f8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 1724.4017860011857,
+        "Y": 537.06726767695079
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.CreateSheet",
+        "Id": "de1e243b71ca4eb2bd940faba3afd7c1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 1731.9107444745191,
+        "Y": 695.911091393557
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "GoogleAPI.CreateSpreadsheet",
+        "Id": "cc0365b3536d497bb1faa07ad1d975e8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 1735.2846995485013,
+        "Y": 844.308002646342
+      },
+      {
+        "ShowGeometry": false,
+        "Name": "GoogleAPI.ReadGoogleSheetMultipleRanges",
+        "Id": "e2b4367de7cc44e99224375277cbd4ed",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1748.2269835169936,
+        "Y": 1498.7901462590326
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "64f3cd9b2df649408c50376883315f4d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1115.4153729922,
+        "Y": 1518.4326719001767
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "d9b7bae8ef5047e4b03dd18e5b76801f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1506.7701532293395,
+        "Y": 1597.440604141955
+      }
+    ],
+    "Annotations": [],
+    "X": -1153.4004771725026,
+    "Y": -1189.395522107186,
+    "Zoom": 1.025637834583045
+  }
+}
