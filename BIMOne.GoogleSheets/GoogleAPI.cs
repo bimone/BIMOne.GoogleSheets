@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Reflection;
 using Autodesk.DesignScript.Runtime;
 
 namespace BIMOne
@@ -17,11 +18,11 @@ namespace BIMOne
         // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
         static string[] Scopes = { SheetsService.Scope.DriveReadonly, SheetsService.Scope.Spreadsheets };
         static string ApplicationName = "BIM One Google Sheets";
-        static string credentialsPath = String.Format(@"{0}\Dynamo\Dynamo Revit\2.0\packages\{1}\extra\{2}", 
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
-            System.Reflection.Assembly.GetCallingAssembly().GetName().Name, 
-            "credentials.json");
-        
+
+        // Get relative path from DLL to credentials file
+        static string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        static string credentialsPath = Path.Combine(assemblyPath, @"..\extra\credentials.json");
+
         static UserCredential credential;
 
         static DriveService driveService { get => 
