@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIMOne.GoogleAPI", "BIMOne.GoogleSheets\BIMOne.GoogleAPI.csproj", "{C16E92A8-9AF7-49AA-912D-2A290C2CBBD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIMOneGoogleAPI", "BIMOne.GoogleSheets\BIMOneGoogleAPI.csproj", "{C16E92A8-9AF7-49AA-912D-2A290C2CBBD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,8 +7,8 @@
     <ProjectGuid>{C16E92A8-9AF7-49AA-912D-2A290C2CBBD3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BIMOne.GoogleAPI</RootNamespace>
-    <AssemblyName>BIMOne.GoogleAPI</AssemblyName>
+    <RootNamespace>BIMOneGoogleAPI</RootNamespace>
+    <AssemblyName>BIMOneGoogleAPI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -91,11 +91,15 @@
     <None Include="pkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BIMOne.GoogleAPI_DynamoCustomization.xml">
+    <Content Include="BIMOneGoogleAPI_DynamoCustomization.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\BIMOne.GoogleAPI.BIMOne.GoogleAPI.Large.png" />
-    <Content Include="Resources\BIMOne.GoogleAPI.BIMOne.GoogleAPI.Small.png" />
+    <None Include="Resources\BIMOneGoogleAPI.BIMOne.GoogleAPI.Large.png" />
+    <None Include="Resources\BIMOneGoogleAPI.BIMOne.GoogleAPI.Small.png" />
+    <Content Include="Resources\DefaultCustomNode.Large.png" />
+    <Content Include="Resources\DefaultCustomNode.Small.png" />
+    <Content Include="Resources\GoogleSheets.Small.png" />
+    <Content Include="Resources\GoogleSheets.Large.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\BIMOneGoogleAPIImages.resx">
@@ -104,13 +108,6 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /Y "$(TargetDir)*.dll" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
-xcopy /Y "$(TargetDir)*.pdb" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
-xcopy /Y "$(TargetDir)*.xml" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
-xcopy /Y "$(TargetDir)credentials.json" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\extra\"
-xcopy /Y "$(ProjectDir)pkg.json" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)"</PostBuildEvent>
-  </PropertyGroup>
   <Target Name="AfterBuild">
     <!-- Get System.Drawing.dll -->
     <GetReferenceAssemblyPaths TargetFrameworkMoniker=".NETFramework, Version=v4.6.1">
@@ -124,4 +121,14 @@ xcopy /Y "$(ProjectDir)pkg.json" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(
     <GenerateResource SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" UseSourcePath="true" Sources="$(ProjectDir)\Resources\BIMOneGoogleAPIImages.resx" OutputResources="$(ProjectDir)\Resources\BIMOneGoogleAPIImages.resources" References="$(FrameworkAssembliesPath)System.Drawing.dll" />
     <AL SdkToolsPath="$(TargetFrameworkSDKToolsDirectory)" TargetType="library" EmbedResources="$(ProjectDir)\Resources\BIMOneGoogleAPIImages.resources" OutputAssembly="$(OutDir)BIMOneGoogleAPI.customization.dll" Version="%(AssemblyInfo.Version)" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+      xcopy /Y "$(TargetDir)*.dll" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
+      xcopy /Y "$(TargetDir)*.pdb" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
+      xcopy /Y "$(TargetDir)*.xml" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
+      xcopy /Y "$(TargetDir)credentials.json" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\extra\"
+      xcopy /Y "$(ProjectDir)pkg.json" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)"
+      xcopy /Y "$(TargetDir)*.customization.dll" "$(AppData)\Dynamo\Dynamo Revit\2.0\packages\$(ProjectName)\bin\"
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

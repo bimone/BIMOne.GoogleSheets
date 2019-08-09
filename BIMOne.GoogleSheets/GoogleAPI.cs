@@ -62,6 +62,11 @@ namespace BIMOne
             }
         }
 
+        // Useless class simply here to assign an icon to it and make it sort in first position so dynamo uses it as the package logo.
+        [IsVisibleInDynamoLibrary(true)]
+        public static void About() { }
+
+
         /// <summary>
         /// Gets a list of Google Sheets present in a user's Google Drive with optional
         /// 'contains' keyword filter.
