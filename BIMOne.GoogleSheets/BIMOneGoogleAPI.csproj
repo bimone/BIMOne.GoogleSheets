@@ -96,10 +96,6 @@
     </Content>
     <None Include="Resources\BIMOneGoogleAPI.BIMOne.GoogleAPI.Large.png" />
     <None Include="Resources\BIMOneGoogleAPI.BIMOne.GoogleAPI.Small.png" />
-    <Content Include="Resources\DefaultCustomNode.Large.png" />
-    <Content Include="Resources\DefaultCustomNode.Small.png" />
-    <Content Include="Resources\GoogleSheets.Small.png" />
-    <Content Include="Resources\GoogleSheets.Large.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\BIMOneGoogleAPIImages.resx">
