@@ -92,6 +92,9 @@
     <None Include="pkg.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BIMOneGoogleAPI.Migrations.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="BIMOneGoogleAPI_DynamoCustomization.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

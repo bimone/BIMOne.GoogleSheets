@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<migrations>
+  <priorNameHint>
+    <oldName>BIMOne.GoogleAPI.GetGoogleSpreadsheets</oldName>
+    <newName>BIMOne.GoogleAPI.GetGoogleSheetsInGoogleDrive</newName>
+  </priorNameHint>
+  <priorNameHint>
+    <oldName>BIMOne.GoogleAPI.AppendDataToGoogleSheetsTable</oldName>
+    <newName>BIMOne.GoogleAPI.AppendDataToGoogleSheetTable</newName>
+  </priorNameHint>
+  <priorNameHint>
+    <oldName>BIMOne.GoogleAPI.CreateSheet</oldName>
+    <newName>BIMOne.GoogleAPI.CreateNewSheetWithinGoogleSheet</newName>
+  </priorNameHint>
+  <priorNameHint>
+    <oldName>BIMOne.GoogleAPI.CreateSpreadsheet</oldName>
+    <newName>BIMOne.GoogleAPI.CreateNewGoogleSheet</newName>
+  </priorNameHint>
+  <priorNameHint>
+    <oldName>BIMOne.GoogleAPI.GetSheetsInSpreadsheet</oldName>
+    <newName>BIMOne.GoogleAPI.GetSheetsInGoogleSheet</newName>
+  </priorNameHint>
+  <priorNameHint>
+    <oldName>BIMOne.GoogleAPI.WriteDataToGoogleSheets</oldName>
+    <newName>BIMOne.GoogleAPI.WriteDataToGoogleSheet</newName>
+  </priorNameHint>
+</migrations>
