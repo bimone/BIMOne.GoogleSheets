@@ -81,7 +81,7 @@ namespace BIMOne
         /// google, sheets, drive, read
         /// </search>
         [MultiReturn(new[] { "fileNames", "fileIds" })]
-        public static Dictionary<string, object> GetGoogleSpreadsheets(string filter = "")
+        public static Dictionary<string, object> GetGoogleSheetsInGoogleDrive(string filter = "")
         {
             var fileNames = new List<string>();
             var fileIds= new List<string>();
@@ -119,7 +119,8 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Appends a nested list of lists to a Google Sheet™.
+        /// Appends a nested list of lists to a Google Sheet™. The first table detected in the provided range will be the one that the API
+        /// appends the new data to.
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
@@ -132,7 +133,7 @@ namespace BIMOne
         /// google, sheets, drive, write
         /// </search>
         [MultiReturn(new[] { "spreadsheetID", "updatedValues", "range" })]
-        public static Dictionary<string, object> AppendDataToGoogleSheetsTable(string spreadsheetId, string sheet, string range, List<IList<object>>data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
+        public static Dictionary<string, object> AppendDataToGoogleSheetTable(string spreadsheetId, string sheet, string range, List<IList<object>>data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
         {
             range = formatRange(sheet, range);
 
@@ -185,7 +186,7 @@ namespace BIMOne
         /// google, sheets, drive, write
         /// </search>
         [MultiReturn(new[] { "spreadsheetID", "updatedValues", "range" })]
-        public static Dictionary<string, object> WriteDataToGoogleSheets(string spreadsheetId, string sheet, string range, List<IList<object>> data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
+        public static Dictionary<string, object> WriteDataToGoogleSheet(string spreadsheetId, string sheet, string range, List<IList<object>> data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
         {
             range = formatRange(sheet, range);
 
@@ -208,7 +209,7 @@ namespace BIMOne
 
             if (!sheetExists)
             {
-                var createSheetResponse = CreateSheet(spreadsheetId, sheet);
+                var createSheetResponse = CreateNewSheetWithinGoogleSheet(spreadsheetId, sheet);
             }
 
             var updateRequest = sheetsService.Spreadsheets.Values.Update(valueRange, spreadsheetId, range);
@@ -388,7 +389,7 @@ namespace BIMOne
         /// google, sheets, titles, ids
         /// </search>
         [MultiReturn(new[] { "sheetTitles", "sheetIds" })]
-        public static Dictionary<string, object> GetSheetsInSpreadsheet(string spreadsheetID)
+        public static Dictionary<string, object> GetSheetsInGoogleSheet(string spreadsheetID)
         {
             SpreadsheetsResource.GetRequest request = sheetsService.Spreadsheets.Get(spreadsheetID);
             var response = request.Execute();
@@ -419,7 +420,7 @@ namespace BIMOne
         /// google, sheets, titles, ids, create
         /// </search>
         [MultiReturn(new[] { "sheetTitle", "spreadsheetId" })]
-        public static Dictionary<string, object> CreateSheet(string spreadsheetID, string newSheetTitle)
+        public static Dictionary<string, object> CreateNewSheetWithinGoogleSheet(string spreadsheetID, string newSheetTitle)
         {
             AddSheetRequest addSheetRequest = new AddSheetRequest();
             addSheetRequest.Properties = new SheetProperties();
@@ -454,7 +455,7 @@ namespace BIMOne
         /// google, sheets, title, create, spreadsheet
         /// </search>
         [MultiReturn(new[] { "spreadsheetId", "sheetUrl" })]
-        public static Dictionary<string, object> CreateSpreadsheet(string spreadsheetTitle, bool openInBrowser = false)
+        public static Dictionary<string, object> CreateNewGoogleSheet(string spreadsheetTitle, bool openInBrowser = false)
         {
             var spreadsheet = new Spreadsheet();
 
