@@ -94,6 +94,7 @@
   <ItemGroup>
     <Content Include="BIMOneGoogleAPI.Migrations.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="BIMOneGoogleAPI_DynamoCustomization.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
