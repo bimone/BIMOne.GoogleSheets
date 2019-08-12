@@ -62,16 +62,20 @@ namespace BIMOne
             }
         }
 
-        // Useless class simply here to assign an icon to it and make it sort in first position so dynamo uses it as the package logo.
+        /// <summary>
+        /// A useless node, DO NOT USE.
+        /// </summary>
+        /// <returns>nothing</returns>
+        /// <search>
+        /// </search>
         [IsVisibleInDynamoLibrary(true)]
         public static void About() { }
 
-
         /// <summary>
-        /// Gets a list of Google Sheets present in a user's Google Drive with optional
+        /// Gets a list of Google Sheets present in a user's Google Drive™ with optional
         /// 'contains' keyword filter.
         /// </summary>
-        /// <param name="filter">The text filter to use when seraching for Google Sheets on the Drive.</param>
+        /// <param name="filter">The text filter to use when searching for Google Sheets on the Drive.</param>
         /// <returns>fileNames, fileIds as lists.</returns>
         /// <search>
         /// google, sheets, drive, read
@@ -115,7 +119,7 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Appends a nested list of lists to a Google Spreadsheet
+        /// Appends a nested list of lists to a Google Sheet™.
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
@@ -168,7 +172,7 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Writes a nested list of lists to a Google Spreadsheet
+        /// Writes a nested list of lists to a Google Sheet™.
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
@@ -238,7 +242,7 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Reads a specified range of a Google Spreadsheet
+        /// Reads a specified range of a Google Sheet™.
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
@@ -284,7 +288,7 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Reads multiple specified ranges of a Google Spreadsheet.
+        /// Reads multiple specified ranges of a Google Sheet™.
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="ranges">A list of ranges where to read the data from as string. Ex.: Sheet1!A:Z, Sheet2!A:Z, ...</param>
@@ -350,7 +354,7 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Clears values in the specified range of cells in a Google Sheet. Only values, not formatting.
+        /// Clears values in the specified range of cells in a Google Sheet™. Only values, not formatting.
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
@@ -375,9 +379,9 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Gets sheet title and ids in a Google Spreadsheet
+        /// Gets sheet title and ids in a Google Sheet™.
         /// </summary>
-        /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
+        /// <param name="spreadsheetID">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <returns>sheetTitles</returns>
         /// <returns>sheetIds</returns>
         /// <search>
@@ -405,7 +409,7 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Create a new sheet within a spreadsheet.
+        /// Create a new sheet within a Google Sheet™.
         /// </summary>
         /// <param name="spreadsheetID">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="newSheetTitle">The title of the new sheet</param>
@@ -440,7 +444,7 @@ namespace BIMOne
         }
 
         /// <summary>
-        /// Create a new spreadsheet.
+        /// Create a new Google Sheet™.
         /// </summary>
         /// <param name="spreadsheetTitle">The title of the Spreadsheet</param>
         /// <param name="openInBrowser">Whether or not to open in browser afer successful creation.</param>
