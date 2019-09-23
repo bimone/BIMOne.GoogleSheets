@@ -477,6 +477,97 @@ namespace BIMOne
             return d;
         }
 
+        /// <summary>
+        /// Delete a sheet by id within a Google Sheet™.
+        /// </summary>
+        /// <param name="spreadsheetID">The id of the Spreadsheet</param>
+        /// <param name="sheetId">The id of the sheet within the Spreadsheet</param>
+        /// <returns>spreadsheetId</returns>
+        /// <search>
+        /// google, sheets, title, delete, sheet
+        /// </search>
+        public static Dictionary<string, object> DeleteSheetByIdWithinGoogleSheet(string spreadsheetID, int sheetId)
+        {
+            DeleteSheetRequest deleteSheetRequest = new DeleteSheetRequest();
+            deleteSheetRequest.SheetId = sheetId;
+
+            BatchUpdateSpreadsheetRequest requestBody = new BatchUpdateSpreadsheetRequest();
+            List<Request> requests = new List<Request>();
+            requestBody.Requests = requests;
+            requestBody.Requests.Add(new Request
+            {
+                DeleteSheet = deleteSheetRequest
+            });
+
+            SpreadsheetsResource.BatchUpdateRequest batchRequest = sheetsService.Spreadsheets.BatchUpdate(requestBody, spreadsheetID);
+
+            BatchUpdateSpreadsheetResponse response = batchRequest.Execute();
+
+            var d = new Dictionary<string, object>();
+            d.Add("spreadsheetId", response.SpreadsheetId);
+            return d;
+        }
+
+        /// <summary>
+        /// Delete a sheet by title within a Google Sheet™.
+        /// </summary>
+        /// <param name="spreadsheetID">The id of the Spreadsheet</param>
+        /// <param name="sheetTitle">The title of the sheet within the Spreadsheet</param>
+        /// <returns>spreadsheetId</returns>
+        /// <search>
+        /// google, sheets, title, delete, sheet
+        /// </search>
+        public static Dictionary<string, object> DeleteSheetByTitleWithinGoogleSheet(string spreadsheetID, string sheetTitle)
+        {
+            Dictionary<string, object> lookup = GetSheetsInGoogleSheet(spreadsheetID);
+            var d = new Dictionary<string, object>();
+            if (lookup.ContainsKey("sheetTitles"))
+            {
+                var values = new object();
+                lookup.TryGetValue("sheetTitles", out values);
+
+                List<string> sheetTitles = (List<string>)values;
+                int sheetIndex = -1;
+                for (int i = 0; i < sheetTitles.Count; i++)
+                {
+                    if (sheetTitles[i] == sheetTitle)
+                    {
+                        sheetIndex = i;
+                    }
+                }
+
+                values = new object();
+                lookup.TryGetValue("sheetIds", out values);
+                List<string> sheetIds = (List<string>)values;
+
+                int sheetId = Int32.Parse(sheetIds[sheetIndex]);
+
+                DeleteSheetRequest deleteSheetRequest = new DeleteSheetRequest();
+                deleteSheetRequest.SheetId = sheetId;
+
+                BatchUpdateSpreadsheetRequest requestBody = new BatchUpdateSpreadsheetRequest();
+                List<Request> requests = new List<Request>();
+                requestBody.Requests = requests;
+                requestBody.Requests.Add(new Request
+                {
+                    DeleteSheet = deleteSheetRequest
+                });
+
+                SpreadsheetsResource.BatchUpdateRequest batchRequest = sheetsService.Spreadsheets.BatchUpdate(requestBody, spreadsheetID);
+
+                BatchUpdateSpreadsheetResponse response = batchRequest.Execute();
+
+                d.Add("spreadsheetId", response.SpreadsheetId);
+            }
+            else
+            {
+                d.Add("response", "Sheet not found.");
+            }
+
+            
+            return d;
+        }
+
         [IsVisibleInDynamoLibrary(false)]
         static void openLinkInBrowser(string url)
         {

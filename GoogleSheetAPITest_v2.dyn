@@ -12,7 +12,7 @@
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
       "NodeType": "StringInputNode",
-      "InputValue": "estimation",
+      "InputValue": "api test vincent",
       "Id": "d7af16d01368452688ce371388977269",
       "Inputs": [],
       "Outputs": [
@@ -32,11 +32,11 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
       "NodeType": "CodeBlockNode",
-      "Code": "item[1];",
+      "Code": "item[0];",
       "Id": "66deaf874cd84059998f61403670829b",
       "Inputs": [
         {
-          "Id": "08fa43a575f54caca703d5850bb7ce27",
+          "Id": "0b170e1bbd2246aea68720dbd4031cab",
           "Name": "item",
           "Description": "item",
           "UsingDefaultValue": false,
@@ -47,7 +47,7 @@
       ],
       "Outputs": [
         {
-          "Id": "7f24240c6f594f728432b5f956b9d806",
+          "Id": "898699d2d39e46038e87f4088361a43b",
           "Name": "",
           "Description": "Value of expression at line 1",
           "UsingDefaultValue": false,
@@ -700,6 +700,203 @@
       ],
       "Replication": "Auto",
       "Description": "Writes a nested list of lists to a Google Sheet™.\n\nGoogleAPI.WriteDataToGoogleSheet (spreadsheetId: string, sheet: string, range: string, data: var[][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.GetSheetsInGoogleSheet@string",
+      "Id": "f824df7a881048fab068ef8ee3bd105e",
+      "Inputs": [
+        {
+          "Id": "8faf29a788a74c7dbe8886679cd37ffa",
+          "Name": "spreadsheetID",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "81f731b411274efeb44c4bb041b8a706",
+          "Name": "sheetTitles",
+          "Description": "sheetTitles",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "7961b7aec67e4ee9946adb2c81f859ac",
+          "Name": "sheetIds",
+          "Description": "sheetIds",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Gets sheet title and ids in a Google Sheet™.\n\nGoogleAPI.GetSheetsInGoogleSheet (spreadsheetID: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "item[1];",
+      "Id": "9a087b319bc34ca9b8e1bec57458d56b",
+      "Inputs": [
+        {
+          "Id": "2c36a703246444b1a0b3e7ad27b9b905",
+          "Name": "item",
+          "Description": "item",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "2d42a1de3dc847599657eac96a7cd78a",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSCore.String.ToNumber@string",
+      "Id": "1b5c9f071b5840bfac7a017eb142890e",
+      "Inputs": [
+        {
+          "Id": "bdcf0ec3a8c84ed49a26b5d869c8a1fb",
+          "Name": "str",
+          "Description": "String to be converted.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1b34d93176e74622b92c62c39e7213d3",
+          "Name": "number",
+          "Description": "Integer or double-type number.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Converts a string to an integer or a double.\n\nString.ToNumber (str: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.DeleteSheetByIdWithinGoogleSheet@string,int",
+      "Id": "ccef301eff524155973845a846e44964",
+      "Inputs": [
+        {
+          "Id": "374f107793214bb08c6575ba1ed028b0",
+          "Name": "spreadsheetID",
+          "Description": "The id of the Spreadsheet\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "1c43de0e1bb949ab93231eae40ee0123",
+          "Name": "sheetId",
+          "Description": "The id of the sheet within the Spreadsheet\n\nint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "71de1dc5d9d84ce5b3c92670415f507e",
+          "Name": "var[]..[]",
+          "Description": "spreadsheetId",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Delete a sheet by id within a Google Sheet™.\n\nGoogleAPI.DeleteSheetByIdWithinGoogleSheet (spreadsheetID: string, sheetId: int): var[]..[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.DeleteSheetByTitleWithinGoogleSheet@string,string",
+      "Id": "bc707de8ec2f4c93a63d2f5c5fb15b55",
+      "Inputs": [
+        {
+          "Id": "ed7f5aa556334608847f79e2d7338926",
+          "Name": "spreadsheetID",
+          "Description": "The id of the Spreadsheet\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "6369aa529552418d985f64cd8a329f44",
+          "Name": "sheetTitle",
+          "Description": "The title of the sheet within the Spreadsheet\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "419f4ab9483749c4b27c24806849f32a",
+          "Name": "var[]..[]",
+          "Description": "spreadsheetId",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Delete a sheet by title within a Google Sheet™.\n\nGoogleAPI.DeleteSheetByTitleWithinGoogleSheet (spreadsheetID: string, sheetTitle: string): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "Sheet2",
+      "Id": "f3b8bcf1b2af4342a63dc0e0b57027df",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "a5d46eb6036747819488d89f85217fcd",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
     }
   ],
   "Connectors": [
@@ -709,39 +906,54 @@
       "Id": "33ffe8ea6cdc4c1981a634b9db1a0749"
     },
     {
-      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "Start": "898699d2d39e46038e87f4088361a43b",
       "End": "f7e191b4cbd24796b519604925fc6e09",
-      "Id": "3592db21912545729838af638af14f48"
+      "Id": "9055ff74aad643679b4e1656f1f24be8"
     },
     {
-      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "Start": "898699d2d39e46038e87f4088361a43b",
       "End": "b4e7b664f84944c09febe3a6dd710eeb",
-      "Id": "7c995da0016e4119be093f4cee5b91e1"
+      "Id": "49000cf943604bbf9b317a589df95679"
     },
     {
-      "Start": "7f24240c6f594f728432b5f956b9d806",
-      "End": "d795276d0dfb434d8dfc3082c6a6cd60",
-      "Id": "bf68eb562ad04721bfa13d155a3f3b1d"
-    },
-    {
-      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "Start": "898699d2d39e46038e87f4088361a43b",
       "End": "23ab2755b9b14ab39e2f3f6fffd28bed",
-      "Id": "54c4c03bcd0d4e95ad8267abdde35d68"
+      "Id": "ec3bbc93e58642a28401161b4bfe4270"
     },
     {
-      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "Start": "898699d2d39e46038e87f4088361a43b",
       "End": "9fb2fab14c97461aaa5c27eb9683cf18",
-      "Id": "bc9026979a9f4f4f8721c833fab243f4"
+      "Id": "15381db9cd034b90ab73b010e553f910"
     },
     {
-      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "Start": "898699d2d39e46038e87f4088361a43b",
       "End": "8db97e10510a497fb40af35df7aabac9",
-      "Id": "6506a6eac6954cb5a80f5427e07dd816"
+      "Id": "f5925373756c4a66b3cfbf704008d180"
     },
     {
-      "Start": "7f24240c6f594f728432b5f956b9d806",
+      "Start": "898699d2d39e46038e87f4088361a43b",
       "End": "97aa9766d7204b88824a269ee5c0f0dd",
-      "Id": "876e5b0061174c27ac47453078ecf60b"
+      "Id": "41107dc08e4241d5b69d4bb25b5828de"
+    },
+    {
+      "Start": "898699d2d39e46038e87f4088361a43b",
+      "End": "d795276d0dfb434d8dfc3082c6a6cd60",
+      "Id": "d6837e563240478fad1971aacee74eb4"
+    },
+    {
+      "Start": "898699d2d39e46038e87f4088361a43b",
+      "End": "8faf29a788a74c7dbe8886679cd37ffa",
+      "Id": "7c540ba7d8b44d22a21ba94dbbaa6a7c"
+    },
+    {
+      "Start": "898699d2d39e46038e87f4088361a43b",
+      "End": "374f107793214bb08c6575ba1ed028b0",
+      "Id": "1c813e9bbe8d4d49a3652e24be2570ba"
+    },
+    {
+      "Start": "898699d2d39e46038e87f4088361a43b",
+      "End": "ed7f5aa556334608847f79e2d7338926",
+      "Id": "3b02ca2091c1422fa7a1438c882b2dfb"
     },
     {
       "Start": "e308788c13694d1a90408e547a403d41",
@@ -815,8 +1027,8 @@
     },
     {
       "Start": "64525d9b851443c9b550f3f0955f704c",
-      "End": "08fa43a575f54caca703d5850bb7ce27",
-      "Id": "02aa4dd546334c8a8f9d7584c582a81a"
+      "End": "0b170e1bbd2246aea68720dbd4031cab",
+      "Id": "b59a045f6adc4abfb3df85b12b9807d1"
     },
     {
       "Start": "05beae63839545a9b6a3a9c71c6ac574",
@@ -827,6 +1039,26 @@
       "Start": "05beae63839545a9b6a3a9c71c6ac574",
       "End": "b4ff937e0fb54c739565aa983cd4bd9d",
       "Id": "01c63fc67c1847059609ea681606f34d"
+    },
+    {
+      "Start": "7961b7aec67e4ee9946adb2c81f859ac",
+      "End": "2c36a703246444b1a0b3e7ad27b9b905",
+      "Id": "9e1eda5f76b34a6eb247b4a707a5555c"
+    },
+    {
+      "Start": "2d42a1de3dc847599657eac96a7cd78a",
+      "End": "bdcf0ec3a8c84ed49a26b5d869c8a1fb",
+      "Id": "6b3a87af7dc1476bb70439d9d7e163b9"
+    },
+    {
+      "Start": "1b34d93176e74622b92c62c39e7213d3",
+      "End": "1c43de0e1bb949ab93231eae40ee0123",
+      "Id": "93a62a3c0c6947f88b667c90df1a36ad"
+    },
+    {
+      "Start": "a5d46eb6036747819488d89f85217fcd",
+      "End": "6369aa529552418d985f64cd8a329f44",
+      "Id": "9d94ba1d0a4c41318c971c6e872b62b9"
     }
   ],
   "Dependencies": [],
@@ -836,7 +1068,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.1.0.7500",
+      "Version": "2.0.3.8810",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -939,7 +1171,7 @@
         "Id": "e2b4367de7cc44e99224375277cbd4ed",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": false,
+        "Excluded": true,
         "X": 1748.2269835169936,
         "Y": 1498.7901462590326
       },
@@ -1000,8 +1232,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": true,
-        "X": 1726.3052203646985,
-        "Y": 698.53497630355992
+        "X": 1729.1585218295893,
+        "Y": 705.6682299657873
       },
       {
         "ShowGeometry": true,
@@ -1022,11 +1254,71 @@
         "Excluded": true,
         "X": 1741.0535970504723,
         "Y": 1195.7659617096351
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.GetSheetsInGoogleSheet",
+        "Id": "f824df7a881048fab068ef8ee3bd105e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1749.2077937418733,
+        "Y": 1735.3221686267909
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "9a087b319bc34ca9b8e1bec57458d56b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 2143.2513622188171,
+        "Y": 1937.7388369166715
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String.ToNumber",
+        "Id": "1b5c9f071b5840bfac7a017eb142890e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2332.7249017707823,
+        "Y": 2035.9310094651196
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.DeleteSheetByIdWithinGoogleSheet",
+        "Id": "ccef301eff524155973845a846e44964",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 2542.6999626328361,
+        "Y": 2106.2413998036955
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.DeleteSheetByTitleWithinGoogleSheet",
+        "Id": "bc707de8ec2f4c93a63d2f5c5fb15b55",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2566.5076236408227,
+        "Y": 2538.7112646857163
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "f3b8bcf1b2af4342a63dc0e0b57027df",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 2310.7493628256238,
+        "Y": 2683.4353916670689
       }
     ],
     "Annotations": [],
-    "X": -353.43186797316025,
-    "Y": -41.537283295341126,
-    "Zoom": 0.63195554247374575
+    "X": -2737.3792280815828,
+    "Y": -2881.2449982331168,
+    "Zoom": 1.2299121771255253
   }
 }
