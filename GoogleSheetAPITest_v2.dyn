@@ -199,7 +199,7 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "BIMOne.GoogleAPI.ClearValuesInRangeGoogleSheet@string,string,string",
+      "FunctionSignature": "BIMOne.GoogleAPI.ClearValuesInRangeGoogleSheet@string,string,string,string",
       "Id": "80871ee96ca94e34a768d2fe8a9b75f8",
       "Inputs": [
         {
@@ -228,6 +228,15 @@
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
+        },
+        {
+          "Id": "b4497a09b46c417695fe22c2e2578407",
+          "Name": "search",
+          "Description": "An optional search string (if the cell \"contains\" that value it's a match). If present, all rows that contain the search string will be erased.\n\nstring\nDefault value : \"\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
         }
       ],
       "Outputs": [
@@ -242,7 +251,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Clears values in the specified range of cells in a Google Sheet™. Only values, not formatting.\n\nGoogleAPI.ClearValuesInRangeGoogleSheet (spreadsheetId: string, sheet: string, range: string): var[]..[]"
+      "Description": "Clears values in the specified range of cells in a Google Sheet™. Only values, not formatting.\n\nGoogleAPI.ClearValuesInRangeGoogleSheet (spreadsheetId: string, sheet: string, range: string, search: string = \"\"): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -897,6 +906,26 @@
       ],
       "Replication": "Disabled",
       "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "test",
+      "Id": "115289f5d0aa4a9187bc267bcda26e19",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "8ebc4e4a169345a6baee707ec439e184",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
     }
   ],
   "Connectors": [
@@ -1059,6 +1088,11 @@
       "Start": "a5d46eb6036747819488d89f85217fcd",
       "End": "6369aa529552418d985f64cd8a329f44",
       "Id": "9d94ba1d0a4c41318c971c6e872b62b9"
+    },
+    {
+      "Start": "8ebc4e4a169345a6baee707ec439e184",
+      "End": "b4497a09b46c417695fe22c2e2578407",
+      "Id": "f9239a25177c4e78835740983c4d8a24"
     }
   ],
   "Dependencies": [],
@@ -1112,8 +1146,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": true,
-        "X": 1732.49828389426,
-        "Y": 976.40882339069367
+        "X": 1782.0734054796658,
+        "Y": 986.50745926920229
       },
       {
         "ShowGeometry": true,
@@ -1122,8 +1156,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1159.218305344288,
-        "Y": 637.17802547246924
+        "X": 1253.0567719264468,
+        "Y": 588.31998088837008
       },
       {
         "ShowGeometry": true,
@@ -1161,9 +1195,9 @@
         "Id": "80871ee96ca94e34a768d2fe8a9b75f8",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": true,
-        "X": 1724.4017860011857,
-        "Y": 537.06726767695079
+        "Excluded": false,
+        "X": 1793.8478781775798,
+        "Y": 525.48917031226938
       },
       {
         "ShowGeometry": false,
@@ -1232,8 +1266,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": true,
-        "X": 1729.1585218295893,
-        "Y": 705.6682299657873
+        "X": 1780.5697590292696,
+        "Y": 710.258519001473
       },
       {
         "ShowGeometry": true,
@@ -1242,8 +1276,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": true,
-        "X": 1717.877576544257,
-        "Y": 840.75146577351757
+        "X": 1774.7971605867597,
+        "Y": 842.58758138779183
       },
       {
         "ShowGeometry": true,
@@ -1261,7 +1295,7 @@
         "Id": "f824df7a881048fab068ef8ee3bd105e",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": false,
+        "Excluded": true,
         "X": 1749.2077937418733,
         "Y": 1735.3221686267909
       },
@@ -1271,9 +1305,9 @@
         "Id": "9a087b319bc34ca9b8e1bec57458d56b",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": true,
-        "X": 2143.2513622188171,
-        "Y": 1937.7388369166715
+        "Excluded": false,
+        "X": 2111.1622652090241,
+        "Y": 1765.9677882171918
       },
       {
         "ShowGeometry": true,
@@ -1282,8 +1316,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2332.7249017707823,
-        "Y": 2035.9310094651196
+        "X": 2291.1978350522268,
+        "Y": 1769.7802636780139
       },
       {
         "ShowGeometry": true,
@@ -1292,8 +1326,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": true,
-        "X": 2542.6999626328361,
-        "Y": 2106.2413998036955
+        "X": 2527.5992110988159,
+        "Y": 1757.0365205794787
       },
       {
         "ShowGeometry": true,
@@ -1301,9 +1335,9 @@
         "Id": "bc707de8ec2f4c93a63d2f5c5fb15b55",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 2566.5076236408227,
-        "Y": 2538.7112646857163
+        "Excluded": true,
+        "X": 2527.6065674605788,
+        "Y": 1912.629190493434
       },
       {
         "ShowGeometry": true,
@@ -1312,13 +1346,23 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2310.7493628256238,
-        "Y": 2683.4353916670689
+        "X": 2278.5233455662865,
+        "Y": 1958.8964933914187
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "115289f5d0aa4a9187bc267bcda26e19",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1676.1526643225691,
+        "Y": 630.67251147250636
       }
     ],
     "Annotations": [],
-    "X": -2737.3792280815828,
-    "Y": -2881.2449982331168,
-    "Zoom": 1.2299121771255253
+    "X": -1199.011146074296,
+    "Y": -434.781720985771,
+    "Zoom": 1.0892560274808671
   }
 }
