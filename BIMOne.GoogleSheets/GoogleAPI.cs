@@ -360,22 +360,103 @@ namespace BIMOne
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
         /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
+        /// <param name="search">An optional search string (if the cell "contains" that value it's a match). If present, all rows that contain the search string will be erased.</param>
         /// <returns>clearedRange</returns>
         /// <search>
         /// google, sheets, clear, range
         /// </search>
         [MultiReturn(new[] { "clearedRange" })]
-        public static Dictionary<string, object> ClearValuesInRangeGoogleSheet(string spreadsheetId, string sheet, string range)
+        public static Dictionary<string, object> ClearValuesInRangeGoogleSheet(string spreadsheetId, string sheet, string range, string search = "")
         {
             // Range format: SHEET:!A:F
             range = $"{sheet}!{range}";
-
-            var requestBody = new ClearValuesRequest();
-            SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(requestBody, spreadsheetId, range);
-            var clearResponse = request.Execute();
-
             var d = new Dictionary<string, object>();
-            d.Add("clearedRange", clearResponse.ClearedRange);
+
+            if (search.Length != 0)
+            {
+                int sheetId = lookupSheetId(spreadsheetId, sheet);
+                // Search within the range and if something matches, erase all rows that match.
+                SpreadsheetsResource.ValuesResource.GetRequest getRequest = sheetsService.Spreadsheets.Values.Get(spreadsheetId, range);
+                SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum valueRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.ValueRenderOptionEnum.UNFORMATTEDVALUE;
+                getRequest.ValueRenderOption = valueRenderOption;
+                SpreadsheetsResource.ValuesResource.GetRequest.DateTimeRenderOptionEnum dateTimeRenderOption = SpreadsheetsResource.ValuesResource.GetRequest.DateTimeRenderOptionEnum.FORMATTEDSTRING;
+                getRequest.DateTimeRenderOption = dateTimeRenderOption;
+
+                var getResponse = getRequest.Execute();
+
+                var rows = getResponse.Values;
+                List<int> rowsToDelete = new List<int>();
+
+                for (int row = 0; row < rows.Count; row++)
+                {
+                    for (int column = 0; column < rows[row].Count; column++)
+                    {
+                        var cell = rows[row][column].ToString();
+                        if (cell.Contains(search))
+                        {
+                            // We've found a match. 
+                            rowsToDelete.Add(row);
+                        }
+                    }
+                }
+
+                if (rowsToDelete.Count > 0)
+                {
+                    
+                    List<string> ranges = new List<string>();
+                    var requestBody = new BatchUpdateSpreadsheetRequest();
+                    var requests = new List<Request>();
+
+                    int rowOffset = 0;
+                    foreach (int rowId in rowsToDelete)
+                    {
+                        //DimensionRange deleteDimensionRange = new DimensionRange();
+                        //deleteDimensionRange.Dimension = "ROWS";
+                        //deleteDimensionRange.SheetId = sheetId;
+                        //deleteDimensionRange.StartIndex = rowId;
+                        //deleteDimensionRange.EndIndex = rowId+1;
+
+                        //DeleteDimensionRequest deleteDimensionRequest = new DeleteDimensionRequest();
+                        //deleteDimensionRequest.Range = deleteDimensionRange;
+
+                        DeleteRangeRequest deleteRangeRequest = new DeleteRangeRequest();
+                        deleteRangeRequest.ShiftDimension = "ROWS";
+                        GridRange gridRangeToDelete = new GridRange();
+                        gridRangeToDelete.SheetId = sheetId;
+                        gridRangeToDelete.StartRowIndex = rowId - rowOffset;
+                        gridRangeToDelete.EndRowIndex = (rowId + 1) - rowOffset;
+                        deleteRangeRequest.Range = gridRangeToDelete;
+
+                        Request _request = new Request();
+                        _request.DeleteRange = deleteRangeRequest;
+                        //_request.DeleteDimension = deleteDimensionRequest;
+                        
+                        requests.Add(_request);
+                        rowOffset++;
+                    }
+                    //var requestBody = new BatchClearValuesRequest();
+                    //requestBody.Ranges = ranges;
+                    requestBody.Requests = requests;
+
+                    SpreadsheetsResource.BatchUpdateRequest request = sheetsService.Spreadsheets.BatchUpdate(requestBody,spreadsheetId);
+                    // SpreadsheetsResource.ValuesResource.BatchClearRequest request = sheetsService.Spreadsheets.Values.BatchClear(requestBody, spreadsheetId);
+                    var clearResponse = request.Execute();
+                    d.Add("clearedRange", clearResponse.Replies);
+                }
+                else
+                {
+                    d.Add("clearedRange", "Nothing matching search parameter was found.");
+                }
+            }
+            else
+            {
+                // Just clear everything in that range
+                var requestBody = new ClearValuesRequest();
+                SpreadsheetsResource.ValuesResource.ClearRequest request = sheetsService.Spreadsheets.Values.Clear(requestBody, spreadsheetId, range);
+                var clearResponse = request.Execute();
+                d.Add("clearedRange", clearResponse.ClearedRange);
+            }
+            
             return d;
         }
 
@@ -519,29 +600,10 @@ namespace BIMOne
         /// </search>
         public static Dictionary<string, object> DeleteSheetByTitleWithinGoogleSheet(string spreadsheetID, string sheetTitle)
         {
-            Dictionary<string, object> lookup = GetSheetsInGoogleSheet(spreadsheetID);
+            int sheetId = lookupSheetId(spreadsheetID, sheetTitle);
             var d = new Dictionary<string, object>();
-            if (lookup.ContainsKey("sheetTitles"))
+            if (sheetId > 0)
             {
-                var values = new object();
-                lookup.TryGetValue("sheetTitles", out values);
-
-                List<string> sheetTitles = (List<string>)values;
-                int sheetIndex = -1;
-                for (int i = 0; i < sheetTitles.Count; i++)
-                {
-                    if (sheetTitles[i] == sheetTitle)
-                    {
-                        sheetIndex = i;
-                    }
-                }
-
-                values = new object();
-                lookup.TryGetValue("sheetIds", out values);
-                List<string> sheetIds = (List<string>)values;
-
-                int sheetId = Int32.Parse(sheetIds[sheetIndex]);
-
                 DeleteSheetRequest deleteSheetRequest = new DeleteSheetRequest();
                 deleteSheetRequest.SheetId = sheetId;
 
@@ -558,13 +620,11 @@ namespace BIMOne
                 BatchUpdateSpreadsheetResponse response = batchRequest.Execute();
 
                 d.Add("spreadsheetId", response.SpreadsheetId);
-            }
+            } 
             else
             {
                 d.Add("response", "Sheet not found.");
             }
-
-            
             return d;
         }
 
@@ -586,6 +646,40 @@ namespace BIMOne
             else
             {
                 return $"{sheet}!{range}";
+            }
+        }
+
+        [IsVisibleInDynamoLibrary(false)]
+        static int lookupSheetId(string spreadsheetId, string sheetTitle)
+        {
+            Dictionary<string, object> lookup = GetSheetsInGoogleSheet(spreadsheetId);
+            
+            if (lookup.ContainsKey("sheetTitles"))
+            {
+                var values = new object();
+                lookup.TryGetValue("sheetTitles", out values);
+
+                List<string> sheetTitles = (List<string>)values;
+                int sheetIndex = -1;
+                for (int i = 0; i < sheetTitles.Count; i++)
+                {
+                    if (sheetTitles[i] == sheetTitle)
+                    {
+                        sheetIndex = i;
+                    }
+                }
+
+                values = new object();
+                lookup.TryGetValue("sheetIds", out values);
+                List<string> sheetIds = (List<string>)values;
+
+                int sheetId = Int32.Parse(sheetIds[sheetIndex]);
+
+                return sheetId;
+            }
+            else
+            {
+                return 0;
             }
         }
     }
