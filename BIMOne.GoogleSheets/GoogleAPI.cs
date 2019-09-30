@@ -402,7 +402,6 @@ namespace BIMOne
 
                 if (rowsToDelete.Count > 0)
                 {
-                    
                     List<string> ranges = new List<string>();
                     var requestBody = new BatchUpdateSpreadsheetRequest();
                     var requests = new List<Request>();
@@ -410,15 +409,6 @@ namespace BIMOne
                     int rowOffset = 0;
                     foreach (int rowId in rowsToDelete)
                     {
-                        //DimensionRange deleteDimensionRange = new DimensionRange();
-                        //deleteDimensionRange.Dimension = "ROWS";
-                        //deleteDimensionRange.SheetId = sheetId;
-                        //deleteDimensionRange.StartIndex = rowId;
-                        //deleteDimensionRange.EndIndex = rowId+1;
-
-                        //DeleteDimensionRequest deleteDimensionRequest = new DeleteDimensionRequest();
-                        //deleteDimensionRequest.Range = deleteDimensionRange;
-
                         DeleteRangeRequest deleteRangeRequest = new DeleteRangeRequest();
                         deleteRangeRequest.ShiftDimension = "ROWS";
                         GridRange gridRangeToDelete = new GridRange();
@@ -429,17 +419,15 @@ namespace BIMOne
 
                         Request _request = new Request();
                         _request.DeleteRange = deleteRangeRequest;
-                        //_request.DeleteDimension = deleteDimensionRequest;
                         
                         requests.Add(_request);
                         rowOffset++;
                     }
-                    //var requestBody = new BatchClearValuesRequest();
-                    //requestBody.Ranges = ranges;
+
                     requestBody.Requests = requests;
 
                     SpreadsheetsResource.BatchUpdateRequest request = sheetsService.Spreadsheets.BatchUpdate(requestBody,spreadsheetId);
-                    // SpreadsheetsResource.ValuesResource.BatchClearRequest request = sheetsService.Spreadsheets.Values.BatchClear(requestBody, spreadsheetId);
+
                     var clearResponse = request.Execute();
                     d.Add("clearedRange", clearResponse.Replies);
                 }
