@@ -133,7 +133,7 @@ namespace BIMOne
         /// google, sheets, drive, write
         /// </search>
         [MultiReturn(new[] { "spreadsheetID", "updatedValues", "range" })]
-        public static Dictionary<string, object> AppendDataToGoogleSheetTable(string spreadsheetId, string sheet, string range, List<IList<object>>data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
+        public static Dictionary<string, object> AppendDataToGoogleSheetTable(string spreadsheetId, string sheet, string range, List<IList<object>> data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
         {
             range = formatRange(sheet, range);
 
@@ -151,12 +151,12 @@ namespace BIMOne
             {
                 appendRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.AppendRequest.ValueInputOptionEnum.USERENTERED;
             }
-            
+
             var appendResponse = appendRequest.Execute();
- 
+
             var d = new Dictionary<string, object>();
             d.Add("spreadsheetID", appendResponse.SpreadsheetId);
-            
+
             if (includeValuesInResponse)
             {
                 var updatedValues = appendResponse.Updates.UpdatedData;
@@ -167,6 +167,115 @@ namespace BIMOne
             {
                 d.Add("updatedValues", "");
                 d.Add("range", "");
+            }
+
+            return d;
+        }
+
+        /// <summary>
+        /// Appends a nested list of lists to a Google Sheet™. The first table detected in the provided range will be the one that the API
+        /// appends the new data to.
+        /// </summary>
+        /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
+        /// <param name="sheets">The names of the sheets within the spreadsheet as a list of strings. Ex.: Sheet1 </param>
+        /// <param name="data">A list of lists of lists containing the data to append to the table in Google Sheets. Outter list corresponds to sheets, first inner to rows and innermost to columns within the rows</param>
+        /// <param name="userInputModeRaw">If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).</param>
+        /// <param name="includeValuesInResponse">If true, returns the updated/appended data in the response.</param>
+        /// <returns>"spreadsheetID", "updatedValues", "range"</returns>
+        /// <search>
+        /// google, sheets, drive, write
+        /// </search>
+        [MultiReturn(new[] { "spreadsheetID", "replies" })]
+        public static Dictionary<string, object> BatchAppendDataToGoogleSheet(string spreadsheetId, List<string> sheets, List<List<IList<object>>>data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
+        {
+            if (sheets.Count != data.Count)
+            {
+                // Raise a problem because the input length of the sheets and data list much match.
+                throw new Exception();
+            }
+
+            List<int> sheetIds = lookupSheetIds(spreadsheetId, sheets);
+
+            BatchUpdateSpreadsheetRequest requestBody = new BatchUpdateSpreadsheetRequest();
+            requestBody.Requests = new List<Request>();
+
+            for (int i = 0; i < sheets.Count; i++)
+            {
+                string sheet = sheets[i];
+                List<IList<object>> sheetData = data[i];
+
+                AppendCellsRequest appendCellsRequest = new AppendCellsRequest();
+                appendCellsRequest.SheetId = sheetIds[i];
+
+                List<RowData> rowDatas = new List<RowData>();
+                foreach (var row in sheetData)
+                {
+                    RowData rowData = new RowData();
+                    List<CellData> cellDatas = new List<CellData>();
+
+                    foreach (var column in row)
+                    {
+                        CellData cellData = new CellData();
+                        ExtendedValue extendedValue = new ExtendedValue();
+                        // Detect the value type (number, bool, string, formula) and parse accordingly
+                        var isFormula = column.ToString().StartsWith("=");
+                        var isNumeric = IsNumeric(column);
+                        var isBool = bool.TryParse(column.ToString(), out bool y);
+
+                        if (isFormula)
+                        {
+                            // Send as formula
+                            extendedValue.FormulaValue = column.ToString();
+                        }
+                        else if (isNumeric)
+                        {
+                            // Send as number
+                            extendedValue.NumberValue = double.Parse(column.ToString());
+                        }
+                        else if (isBool)
+                        {
+                            // Send as bool
+                            extendedValue.BoolValue = y;
+                        }
+                        else
+                        {
+                            // Default to string
+                            extendedValue.StringValue = column.ToString();
+                        }
+
+                        cellData.UserEnteredValue = extendedValue;
+
+                        cellDatas.Add(cellData);
+
+                    }
+                    rowData.Values = cellDatas;
+                    rowDatas.Add(rowData);
+                }
+                appendCellsRequest.Fields = "*";
+                appendCellsRequest.Rows = rowDatas;
+
+                requestBody.Requests.Add(new Request
+                {
+                    AppendCells = appendCellsRequest
+                });
+            }
+
+            // TODO: Range no longer does anything, but we need to allow the user to pick the starting point for the append.
+            //range = formatRange(sheet, range);
+
+            SpreadsheetsResource.BatchUpdateRequest batchRequest = sheetsService.Spreadsheets.BatchUpdate(requestBody, spreadsheetId);
+            BatchUpdateSpreadsheetResponse response = batchRequest.Execute();
+ 
+            var d = new Dictionary<string, object>();
+            d.Add("spreadsheetID", response.SpreadsheetId);
+
+            if (includeValuesInResponse)
+            {
+                d.Add("replies", response.Replies);
+            }
+            else
+            {
+                d.Add("replies", "");
             }
 
             return d;
