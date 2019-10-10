@@ -670,5 +670,53 @@ namespace BIMOne
                 return 0;
             }
         }
+
+        [IsVisibleInDynamoLibrary(false)]
+        static List<int> lookupSheetIds(string spreadsheetId, List<string> sheetTitles)
+        {
+            Dictionary<string, object> lookup = GetSheetsInGoogleSheet(spreadsheetId);
+            List<int> sheetIdsInt = new List<int>();
+
+            if (lookup.ContainsKey("sheetTitles"))
+            {
+                var values = new object();
+                lookup.TryGetValue("sheetTitles", out values);
+
+                List<string> _sheetTitles = (List<string>)values;
+                int sheetIndex = -1;
+                foreach (string title in sheetTitles)
+                {
+                    for (int i = 0; i < _sheetTitles.Count; i++)
+                    {
+                        if (_sheetTitles[i] == title)
+                        {
+                            sheetIndex = i;
+                        }
+                    }
+                    values = new object();
+                    lookup.TryGetValue("sheetIds", out values);
+                    List<string> sheetIds = (List<string>)values;
+
+                    int sheetId = Int32.Parse(sheetIds[sheetIndex]);
+
+                    sheetIdsInt.Add(sheetId);
+                }
+            }
+            else
+            {
+                // No sheet ids were found
+                sheetIdsInt = null;
+            }
+            return sheetIdsInt;
+        }
+
+        [IsVisibleInDynamoLibrary(false)]
+        static bool IsNumeric(object Expression)
+        {
+            double retNum;
+
+            bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            return isNum;
+        }
     }
 }
