@@ -178,7 +178,8 @@ namespace BIMOne
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheets">The names of the sheets within the spreadsheet as a list of strings. Ex.: Sheet1 </param>
-        /// <param name="data">A list of lists of lists containing the data to append to the table in Google Sheets. Outter list corresponds to sheets, first inner to rows and innermost to columns within the rows</param>
+        /// <param name="data">A list of lists of lists containing the data to append to the table in Google Sheets. Outter list corresponds to sheets, 
+        /// first inner to rows and innermost to columns within the rows</param>
         /// <param name="userInputModeRaw">If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).</param>
         /// <param name="includeValuesInResponse">If true, returns the updated/appended data in the response.</param>
         /// <returns>"spreadsheetID", "updatedValues", "range"</returns>

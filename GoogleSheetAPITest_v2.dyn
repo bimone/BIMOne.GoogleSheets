@@ -1060,6 +1060,125 @@
       ],
       "Replication": "Auto",
       "Description": "Appends a nested list of lists to a Google Sheet™. The first table detected in the provided range will be the one that the API appends the new data to.\n\nGoogleAPI.BatchAppendDataToGoogleSheet (spreadsheetId: string, sheets: string[], data: var[][][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "column 2",
+      "Id": "49c789d144a549978ccc43ab76946c61",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9db5ef6803f949fe985a4f963330f7f0",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "d1ac6cb9781e4d74911018e83522cc71",
+      "Inputs": [
+        {
+          "Id": "561e516f73544790b3ae7bbd78ac79eb",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "a60e4691df8f46318fc213665a81da89",
+          "Name": "item1",
+          "Description": "Item Index #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4569c65d6c26469dbe5c470afb8a6389",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "e3395d6eab834c48be5141a3b1bf3f21",
+      "Inputs": [
+        {
+          "Id": "9444a2ea0843431dbe8603a842668edd",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "fd56bd3ccf8b4ae2bb33ca1a7c5548f3",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.CreateList, CoreNodeModels",
+      "VariableInputPorts": true,
+      "NodeType": "ExtensionNode",
+      "Id": "4595ee1325ae4418886cc21d46d74b45",
+      "Inputs": [
+        {
+          "Id": "0996a0f8893c445698aa9042f8b73187",
+          "Name": "item0",
+          "Description": "Item Index #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1092a9db11ff44bbbf6db7863c424317",
+          "Name": "list",
+          "Description": "A list",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Makes a new list out of the given inputs"
     }
   ],
   "Connectors": [
@@ -1165,8 +1284,8 @@
     },
     {
       "Start": "a279ea8fb84a4715aeb11ac52869aaa1",
-      "End": "994bfc820f4643da8545d0b8d4b92ae7",
-      "Id": "a076efc71c284ed999a9205d8b14908e"
+      "End": "9444a2ea0843431dbe8603a842668edd",
+      "Id": "2ab447e0b69b4f2b988923c43fd77c3c"
     },
     {
       "Start": "40a17aca70c44c899f860cc3d0820bd0",
@@ -1246,12 +1365,32 @@
     {
       "Start": "d9bcda857e254098b68080100c772159",
       "End": "867384a7a74d4217aa4a6a06db2a6aed",
-      "Id": "87ac8093f1ca407996e984bbe289020c"
+      "Id": "727c21f21e1d45329f3dfa4600ca99a8"
     },
     {
       "Start": "8e29e0557d774440afe90247253fc961",
+      "End": "561e516f73544790b3ae7bbd78ac79eb",
+      "Id": "f3d3d252b9094a9cbfabd64dd6b0ff86"
+    },
+    {
+      "Start": "9db5ef6803f949fe985a4f963330f7f0",
+      "End": "a60e4691df8f46318fc213665a81da89",
+      "Id": "961ac51dd3504b7a975e6edc2e151ec5"
+    },
+    {
+      "Start": "4569c65d6c26469dbe5c470afb8a6389",
+      "End": "0996a0f8893c445698aa9042f8b73187",
+      "Id": "b834b6bf5e85437ebc61866970dd10c6"
+    },
+    {
+      "Start": "fd56bd3ccf8b4ae2bb33ca1a7c5548f3",
+      "End": "994bfc820f4643da8545d0b8d4b92ae7",
+      "Id": "17cb54d2e9f847d69f01451a50b6aebc"
+    },
+    {
+      "Start": "1092a9db11ff44bbbf6db7863c424317",
       "End": "3fc89aff387747c99c0a2477afdda4f3",
-      "Id": "dda740287fd64a189d5433adc239e226"
+      "Id": "912e8f53951d405b9e0b6c333ce60ceb"
     }
   ],
   "Dependencies": [],
@@ -1335,8 +1474,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 673.23074806343584,
-        "Y": 764.17365978837665
+        "X": 1009.2693611912441,
+        "Y": 196.17686846769129
       },
       {
         "ShowGeometry": true,
@@ -1405,8 +1544,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1005.1734935922599,
-        "Y": 184.79789184351921
+        "X": 967.46387852553,
+        "Y": -252.24687764780833
       },
       {
         "ShowGeometry": true,
@@ -1525,8 +1664,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 853.13925830041012,
-        "Y": 524.07379081362376
+        "X": 1458.0590323847061,
+        "Y": 73.149130913727333
       },
       {
         "ShowGeometry": true,
@@ -1535,8 +1674,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 673.86749936536989,
-        "Y": 581.59471162889827
+        "X": 973.85625778124677,
+        "Y": -7.181236480813709
       },
       {
         "ShowGeometry": true,
@@ -1547,11 +1686,51 @@
         "Excluded": false,
         "X": 1743.8961307029881,
         "Y": -73.211022629269422
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "String",
+        "Id": "49c789d144a549978ccc43ab76946c61",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 951.5586964985614,
+        "Y": 78.137586547529054
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "d1ac6cb9781e4d74911018e83522cc71",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1070.658194989699,
+        "Y": 24.001450869739074
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "e3395d6eab834c48be5141a3b1bf3f21",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1124.2869794135754,
+        "Y": 181.87833004276035
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "List Create",
+        "Id": "4595ee1325ae4418886cc21d46d74b45",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1262.4094367117514,
+        "Y": -29.32823004393947
       }
     ],
     "Annotations": [],
-    "X": -375.48937440223062,
-    "Y": 257.77141870489726,
-    "Zoom": 0.69434468905509128
+    "X": -784.18822353142173,
+    "Y": 305.57373104129158,
+    "Zoom": 0.91944431816731209
   }
 }
