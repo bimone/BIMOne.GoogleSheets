@@ -42,6 +42,14 @@ namespace BIMOne
             });
         }
 
+        static void checkForCredentials()
+        {
+            if (!File.Exists(credentialsPath))
+            {
+                throw new FileNotFoundException("credentials.json not found. Make sure to place it in the Dynamo packages path under BIMOneGoogleAPI\\extra\\credentials.json");
+            }
+        }
+
         [IsVisibleInDynamoLibrary(false)]
         static GoogleAPI()
         {
