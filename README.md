@@ -27,14 +27,14 @@ The package provides the following nodes:
 | Node name  | Use |
 | --- | --- |
 | GetGoogleSheetsInGoogleDrive | Get a list of all the Google Sheets that you can see in you Google Drive. Optionally, pass a string to the filter parameter to narrow down the list of results. |
-| GetSheetsInGoogleSheet | Get a list of the sheets (aka those "tabs" at the bottom) within a Google Sheet |
-| ReadGoogleSheet | |
-| ReadGoogleSheetMultipleRanges | |
-| CreateNewGoogleSheet | |
-| CreateNewSheetWithinGoogleSheet | |
-| BatchAppendDataToGoogleSheet | |
-| AppendDataToGoogleSheet | |
-| WriteDataToGoogleSheet | |
+| GetSheetsInGoogleSheet | Get a list of the sheets (aka those "tabs" at the bottom) within a Google Sheet. |
+| ReadGoogleSheet | Read a specific range within a sheet within a spreadsheet. Optionally return raw values using `unformattedValues` |
+| ReadGoogleSheetMultipleRanges | Read multiple ranges within a spreadsheet. Format of each range in the input list must be `SheetTitle!A:Z`. Optionally return raw values using `unformattedValues` |
+| CreateNewGoogleSheet | Create a new Google Sheet (name must not already exist in your Drive) and optionnaly open it in the browser using `openInBrowser` boolean |
+| CreateNewSheetWithinGoogleSheet | Create a new sheet (or tab) within a spreadsheet. |
+| BatchAppendDataToGoogleSheet | This is the __preferred way of writing data__. It will optimize the number of requests needed to write the data to the Sheets. It will append the data at the end of each sheet passed in. Take a list of sheets (tabs) and a matching data input (A list of lists of lists containing the data to append to the table in Google Sheets. Outter list corresponds to sheets, first inner to rows and innermost to columns within the rows).|
+| AppendDataToGoogleSheet | Similar to the batch append but allows to specify a range and is simpler to user. __However, it is not optimized for large chunks of data (will create many requests)__|
+| WriteDataToGoogleSheet | Will write data to sheet starting at the specified range. __Warning: it will overwrite data.__ To be safe start by using BatchAppend instead |
 | ClearValuesInRangeGoogleSheet | |
 | DeleteSheetByIdWithinGoogleSheet | |
 | DeleteSheetByTitleWithinGoogleSheet | |
