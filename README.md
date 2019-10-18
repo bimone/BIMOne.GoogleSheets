@@ -35,9 +35,9 @@ The package provides the following nodes:
 | BatchAppendDataToGoogleSheet | This is the __preferred way of writing data__. It will optimize the number of requests needed to write the data to the Sheets. It will append the data at the end of each sheet passed in. Take a list of sheets (tabs) and a matching data input (A list of lists of lists containing the data to append to the table in Google Sheets. Outter list corresponds to sheets, first inner to rows and innermost to columns within the rows).|
 | AppendDataToGoogleSheet | Similar to the batch append but allows to specify a range and is simpler to user. __However, it is not optimized for large chunks of data (will create many requests)__|
 | WriteDataToGoogleSheet | Will write data to sheet starting at the specified range. __Warning: it will overwrite data.__ To be safe start by using BatchAppend instead |
-| ClearValuesInRangeGoogleSheet | |
-| DeleteSheetByIdWithinGoogleSheet | |
-| DeleteSheetByTitleWithinGoogleSheet | |
+| ClearValuesInRangeGoogleSheet | __Use with caution__ Clears the values within the given search range. Optionnaly, provide a search string. If the search string is present and a match is found (case sensitive but partial matches are valid) then the entire row where that cell was found will be deleted. |
+| DeleteSheetByIdWithinGoogleSheet | Deletes a sheet/tab within a spreadsheet based on the id past in. |
+| DeleteSheetByTitleWithinGoogleSheet | Deletes a sheet/tab within a spreadsheet based on the title past in. |
 
 
 ## Need helping setting it up?
