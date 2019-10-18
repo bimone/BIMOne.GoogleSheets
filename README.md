@@ -40,5 +40,5 @@ The package provides the following nodes:
 | DeleteSheetByTitleWithinGoogleSheet | Deletes a sheet/tab within a spreadsheet based on the title past in. |
 
 
-## Need helping setting it up?
+## Need help setting it up?
 [Contact us](https://bimone.com/en/ContactUs), we will be glad to help!
