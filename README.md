@@ -11,7 +11,7 @@ A set of Dynamo nodes to facilitate interactions with Google Sheets.
         - `../auth/drive`
     4. Download the credentials file (JSON):
     
-        ![download credentials file](https://via.placeholder.com/150)
+        ![download credentials file](readme_images/download_credentials.png)
     5. Rename the file to `credentials.json`
     6. Place the credentials.json file in the `/extra` folder where you installed the package. For Dynamo 2.0 with locally installed packages, this would typically be `%appdata%\Dynamo\Dynamo Revit\2.0\packages\BIMOneGoogleAPI\extra`
 3. Keep an eye on the [Google Sheets API usage limits](https://developers.google.com/sheets/api/limits).
