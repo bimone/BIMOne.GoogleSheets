@@ -53,12 +53,15 @@ namespace BIMOne
         [IsVisibleInDynamoLibrary(false)]
         static GoogleAPI()
         {
-            GetCredentials();
+            // No longer getting credentials here since it seems impossible to get a useful error message
+            // back up to Dynamo from the Class Initializer.
+            // GetCredentials();
         }
 
         [IsVisibleInDynamoLibrary(false)]
         static UserCredential GetCredentials()
         {
+            checkForCredentials();
             using (var stream =
                 new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
             {
@@ -91,6 +94,8 @@ namespace BIMOne
         [MultiReturn(new[] { "fileNames", "fileIds" })]
         public static Dictionary<string, object> GetGoogleSheetsInGoogleDrive(string filter = "")
         {
+            GetCredentials();
+
             var fileNames = new List<string>();
             var fileIds= new List<string>();
 
@@ -143,6 +148,8 @@ namespace BIMOne
         [MultiReturn(new[] { "spreadsheetID", "updatedValues", "range" })]
         public static Dictionary<string, object> AppendDataToGoogleSheetTable(string spreadsheetId, string sheet, string range, List<IList<object>> data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
         {
+            GetCredentials();
+
             range = formatRange(sheet, range);
 
             var valueRange = new ValueRange();
@@ -199,9 +206,11 @@ namespace BIMOne
         {
             if (sheets.Count != data.Count)
             {
-                // Raise a problem because the input length of the sheets and data list much match.
-                throw new Exception();
+                // Raise a problem because the input length of the sheets and data list must match.
+                throw new Exception("input length of the sheets and data list must match");
             }
+
+            GetCredentials();
 
             List<int> sheetIds = lookupSheetIds(spreadsheetId, sheets);
 
@@ -306,6 +315,8 @@ namespace BIMOne
         [MultiReturn(new[] { "spreadsheetID", "updatedValues", "range" })]
         public static Dictionary<string, object> WriteDataToGoogleSheet(string spreadsheetId, string sheet, string range, List<IList<object>> data, bool userInputModeRaw = false, bool includeValuesInResponse = false)
         {
+            GetCredentials();
+
             range = formatRange(sheet, range);
 
             var valueRange = new ValueRange();
@@ -374,6 +385,8 @@ namespace BIMOne
         [MultiReturn(new[] { "data" })]
         public static Dictionary<string, object> ReadGoogleSheet(string spreadsheetId, string sheet, string range, bool unformattedValues = false)
         {
+            GetCredentials();
+
             range = formatRange(sheet, range);
 
             // How values should be represented in the output.
@@ -419,6 +432,8 @@ namespace BIMOne
         [MultiReturn(new[] { "ranges", "values" })]
         public static Dictionary<string, object> ReadGoogleSheetMultipleRanges(string spreadsheetId, List<string> ranges, bool unformattedValues = false)
         {
+            GetCredentials();
+
             if (ranges == null || ranges.Count < 1)
             {
                 // Default to all sheets
@@ -486,6 +501,8 @@ namespace BIMOne
         [MultiReturn(new[] { "clearedRange" })]
         public static Dictionary<string, object> ClearValuesInRangeGoogleSheet(string spreadsheetId, string sheet, string range, string search = "")
         {
+            GetCredentials();
+
             // Range format: SHEET:!A:F
             range = $"{sheet}!{range}";
             var d = new Dictionary<string, object>();
@@ -578,6 +595,8 @@ namespace BIMOne
         [MultiReturn(new[] { "sheetTitles", "sheetIds" })]
         public static Dictionary<string, object> GetSheetsInGoogleSheet(string spreadsheetID)
         {
+            GetCredentials();
+
             SpreadsheetsResource.GetRequest request = sheetsService.Spreadsheets.Get(spreadsheetID);
             var response = request.Execute();
 
@@ -609,6 +628,8 @@ namespace BIMOne
         [MultiReturn(new[] { "sheetTitle", "spreadsheetId" })]
         public static Dictionary<string, object> CreateNewSheetWithinGoogleSheet(string spreadsheetID, string newSheetTitle)
         {
+            GetCredentials();
+
             AddSheetRequest addSheetRequest = new AddSheetRequest();
             addSheetRequest.Properties = new SheetProperties();
             addSheetRequest.Properties.Title = newSheetTitle;
@@ -644,6 +665,8 @@ namespace BIMOne
         [MultiReturn(new[] { "spreadsheetId", "sheetUrl" })]
         public static Dictionary<string, object> CreateNewGoogleSheet(string spreadsheetTitle, bool openInBrowser = false)
         {
+            GetCredentials();
+
             var spreadsheet = new Spreadsheet();
 
             spreadsheet.Properties = new SpreadsheetProperties();
@@ -675,6 +698,8 @@ namespace BIMOne
         /// </search>
         public static Dictionary<string, object> DeleteSheetByIdWithinGoogleSheet(string spreadsheetID, int sheetId)
         {
+            GetCredentials();
+
             DeleteSheetRequest deleteSheetRequest = new DeleteSheetRequest();
             deleteSheetRequest.SheetId = sheetId;
 
@@ -706,6 +731,8 @@ namespace BIMOne
         /// </search>
         public static Dictionary<string, object> DeleteSheetByTitleWithinGoogleSheet(string spreadsheetID, string sheetTitle)
         {
+            GetCredentials();
+
             int sheetId = lookupSheetId(spreadsheetID, sheetTitle);
             var d = new Dictionary<string, object>();
             if (sheetId > 0)
