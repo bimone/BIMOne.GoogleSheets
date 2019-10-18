@@ -376,7 +376,7 @@ namespace BIMOne
         /// </summary>
         /// <param name="spreadsheetId">The ID of the Spreadsheet (long unique identifier as string)</param>
         /// <param name="sheet">The name of the sheet within the spreadsheet as string. Ex.: Sheet1 </param>
-        /// <param name="range">The range where to write the data as string. Ex.: A:Z</param>
+        /// <param name="range">The range where to read the data from as string. Ex.: A:Z</param>
         /// <param name="unformattedValues">If true, reads Google sheets as raw values.</param>
         /// <returns>data</returns>
         /// <search>
