@@ -4,17 +4,11 @@ A set of Dynamo nodes to facilitate interactions with Google Sheets.
 ## Usage
 1. Get the package installed from https://dynamopackages.com/
 2. Create Google API credentials for your use:
-    1. Create a Google APIs Console project:
-    
-        ![creating a google api project](https://via.placeholder.com/150)
-    2. Enable the Google Drive API and Google Sheets API on this project.
-    
-        ![enable drive api and google sheets api](https://via.placeholder.com/150)
-    3. Create [Google API credentials](https://console.developers.google.com/apis/credentials). Must have at least the following scopes enabled:
+    1. Create a [Google APIs Console project](console.cloud.google.com).
+    2. [Enable the Google Drive API and Google Sheets API](https://support.google.com/googleapi/answer/6158841?hl=en&ref_topic=7013279) on this project.
+    3. Create [Google API credentials](https://console.developers.google.com/apis/credentials). Must have at least the following [scopes enabled](https://support.google.com/a/answer/162106?hl=en):
         - `../auth/spreadsheets`
         - `../auth/drive`
-        
-        ![add drive and sheets scopes](https://via.placeholder.com/150)
     4. Download the credentials file (JSON):
     
         ![download credentials file](https://via.placeholder.com/150)
