@@ -11,14 +11,17 @@ Also, be careful not to confuse the concept of a Google Sheet (the entire spread
 2. Create Google API credentials for your use:
     1. Create a [Google APIs Console project](https://console.cloud.google.com).
     2. [Enable the Google Drive API and Google Sheets API](https://support.google.com/googleapi/answer/6158841?hl=en&ref_topic=7013279) on this project.
-    3. Create [Google API credentials](https://console.developers.google.com/apis/credentials). Must have at least the following [scopes enabled](https://support.google.com/a/answer/162106?hl=en):
+    3. Create OAuth [Google API credentials](https://console.developers.google.com/apis/credentials). When asked for the type of application choose "other". 
+    4. Add at least the following [scopes enabled](https://support.google.com/a/answer/162106?hl=en):
         - `../auth/spreadsheets`
         - `../auth/drive`
-    4. Download the credentials file (JSON):
+        ![google_api_scopes_1](readme_images/google_api_scopes_1.png)
+        ![google_api_scopes_1](readme_images/google_api_scopes_2.png)
+    5. Download the credentials file (JSON):
     
         ![download credentials file](readme_images/download_credentials.png)
-    5. Rename the file to `credentials.json`
-    6. Place the credentials.json file in the `/extra` folder where you installed the package. For Dynamo 2.0 with locally installed packages, this would typically be `%appdata%\Dynamo\Dynamo Revit\2.0\packages\BIMOneGoogleAPI\extra`
+    6. Rename the file to `credentials.json`
+    7. Place the credentials.json file in the `/extra` folder where you installed the package. For Dynamo X.X with locally installed packages, this would typically be `%appdata%\Dynamo\Dynamo Revit\X.X\packages\BIMOneGoogleAPI\extra`
 3. Keep an eye on the [Google Sheets API usage limits](https://developers.google.com/sheets/api/limits).
 
 ## Usage
