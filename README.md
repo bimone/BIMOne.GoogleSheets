@@ -26,7 +26,8 @@ Also, be careful not to confuse the concept of a Google Sheet (the entire spread
 
 ## Usage
 The package provides the following nodes:
-![Liste des noeuds disponibles](readme_images/Noeuds_disponibles.jpg)
+
+        ![Liste des noeuds disponibles](readme_images/Noeuds_disponibles.jpg)
 
 
 | Node name  | Use |
