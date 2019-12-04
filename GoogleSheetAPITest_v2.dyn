@@ -12,7 +12,7 @@
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
       "NodeType": "StringInputNode",
-      "InputValue": "api test vincent",
+      "InputValue": "api test bimone",
       "Id": "d7af16d01368452688ce371388977269",
       "Inputs": [],
       "Outputs": [
@@ -159,7 +159,7 @@
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
       "NodeType": "StringInputNode",
-      "InputValue": "byebye",
+      "InputValue": "sheet1:A1",
       "Id": "7b5a13cdf16b422eacfe5da9ba7a0dfb",
       "Inputs": [],
       "Outputs": [
@@ -969,7 +969,7 @@
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
       "NodeType": "StringInputNode",
-      "InputValue": "yoyo",
+      "InputValue": "sheet2:A1",
       "Id": "936d8d459b0541b6b4e6376c7f947ce0",
       "Inputs": [],
       "Outputs": [
@@ -995,7 +995,7 @@
         {
           "Id": "9bc7814d0f854e208d9ec1f065525377",
           "Name": "spreadsheetId",
-          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
+          "Description": "string",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1004,7 +1004,7 @@
         {
           "Id": "88a9f1894b9e4e1f94967da0110a1fb2",
           "Name": "sheets",
-          "Description": "The names of the sheets within the spreadsheet as a list of strings. Ex.: Sheet1\n\nstring[]",
+          "Description": "string[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1013,7 +1013,7 @@
         {
           "Id": "867384a7a74d4217aa4a6a06db2a6aed",
           "Name": "data",
-          "Description": "A list of lists of lists containing the data to append to the table in Google Sheets. Outter list corresponds to sheets, first inner to rows and innermost to columns within the rows\n\nvar[][][]",
+          "Description": "var[][][]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1022,7 +1022,7 @@
         {
           "Id": "abc297fe7ae64798af9cc3ef2d68cefc",
           "Name": "userInputModeRaw",
-          "Description": "If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).\n\nbool\nDefault value : false",
+          "Description": "bool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1031,7 +1031,7 @@
         {
           "Id": "71c7b349a9ed42a3b567e0dc10b42d76",
           "Name": "includeValuesInResponse",
-          "Description": "If true, returns the updated/appended data in the response.\n\nbool\nDefault value : false",
+          "Description": "bool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1042,7 +1042,7 @@
         {
           "Id": "d1712b3bab724228852bcb36983e9482",
           "Name": "spreadsheetID",
-          "Description": "\"spreadsheetID\", \"updatedValues\", \"range\"",
+          "Description": "var",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1059,12 +1059,12 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Appends a nested list of lists to a Google Sheet™. The first table detected in the provided range will be the one that the API appends the new data to.\n\nGoogleAPI.BatchAppendDataToGoogleSheet (spreadsheetId: string, sheets: string[], data: var[][][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
+      "Description": "GoogleAPI.BatchAppendDataToGoogleSheet (spreadsheetId: string, sheets: string[], data: var[][][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
     },
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
       "NodeType": "StringInputNode",
-      "InputValue": "column 2",
+      "InputValue": "sheet2:B1",
       "Id": "49c789d144a549978ccc43ab76946c61",
       "Inputs": [],
       "Outputs": [
@@ -1240,7 +1240,7 @@
     {
       "Start": "898699d2d39e46038e87f4088361a43b",
       "End": "9bc7814d0f854e208d9ec1f065525377",
-      "Id": "22408f0db2c64c27945bc3e4717251ec"
+      "Id": "79a24acacc484fd992fc363b2647094a"
     },
     {
       "Start": "e308788c13694d1a90408e547a403d41",
@@ -1423,319 +1423,319 @@
     },
     "NodeViews": [
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "d7af16d01368452688ce371388977269",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 166.0,
-        "Y": 139.0
+        "X": 184.312230960051,
+        "Y": 305.47482690955451
       },
       {
-        "ShowGeometry": true,
-        "Name": "Code Block",
         "Id": "66deaf874cd84059998f61403670829b",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 612.6872705721072,
-        "Y": 223.22909019070232
+        "X": 663.6748724023015,
+        "Y": 321.95270438384875
       },
       {
-        "ShowGeometry": false,
-        "Name": "GoogleAPI.ReadGoogleSheet",
         "Id": "e96e3705377a4c4b9fe5b9903d822574",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.ReadGoogleSheet",
+        "ShowGeometry": false,
         "Excluded": true,
-        "X": 1782.0734054796658,
-        "Y": 986.50745926920229
+        "X": 1769.3088710179481,
+        "Y": 1369.4434931207352
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "5d9a9ebbbb6a4816ac186aaf6795d069",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1253.0567719264468,
-        "Y": 588.31998088837008
+        "X": 1240.2922374647292,
+        "Y": 971.25601473990287
       },
       {
-        "ShowGeometry": true,
-        "Name": "Boolean",
         "Id": "b2c95947ec7a48c6a8aca482a4070955",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Boolean",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1234.8864890024893,
-        "Y": 1041.6166291154875
+        "X": 1222.1219545407716,
+        "Y": 1424.5526629670203
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "7b5a13cdf16b422eacfe5da9ba7a0dfb",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1009.2693611912441,
-        "Y": 196.17686846769129
+        "X": 1000.2283347025016,
+        "Y": 60.965788396847245
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "c917cc9c902a4e95897c7fc2e44b6478",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1080.6938567779625,
-        "Y": 1341.5838213269549
+        "X": 1067.9293223162449,
+        "Y": 1724.5198551784877
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.ClearValuesInRangeGoogleSheet",
         "Id": "80871ee96ca94e34a768d2fe8a9b75f8",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.ClearValuesInRangeGoogleSheet",
+        "ShowGeometry": true,
         "Excluded": true,
-        "X": 1793.8478781775798,
-        "Y": 525.48917031226938
+        "X": 1781.0833437158622,
+        "Y": 908.42520416380216
       },
       {
-        "ShowGeometry": false,
-        "Name": "GoogleAPI.ReadGoogleSheetMultipleRanges",
         "Id": "e2b4367de7cc44e99224375277cbd4ed",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.ReadGoogleSheetMultipleRanges",
+        "ShowGeometry": false,
         "Excluded": true,
-        "X": 1748.2269835169936,
-        "Y": 1498.7901462590326
+        "X": 1750.9552245443376,
+        "Y": 1885.5993739828307
       },
       {
-        "ShowGeometry": true,
-        "Name": "Code Block",
         "Id": "64f3cd9b2df649408c50376883315f4d",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1115.4153729922,
-        "Y": 1518.4326719001767
+        "X": 1102.6508385304824,
+        "Y": 1901.3687057517095
       },
       {
-        "ShowGeometry": true,
-        "Name": "Code Block",
         "Id": "d9b7bae8ef5047e4b03dd18e5b76801f",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1506.7701532293395,
-        "Y": 1597.440604141955
+        "X": 1494.0056187676219,
+        "Y": 1980.3766379934877
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.GetGoogleSheetsInGoogleDrive",
         "Id": "f1b659b5fa23478490fbfc5cd6a91d06",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.GetGoogleSheetsInGoogleDrive",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 304.85040942761424,
-        "Y": 180.81340261907695
+        "X": 339.81012307862073,
+        "Y": 297.34578145576512
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.GetSheetsInGoogleSheet",
         "Id": "d88a45f611454263996bea5819fe626b",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.GetSheetsInGoogleSheet",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 967.46387852553,
-        "Y": -252.24687764780833
+        "X": 1052.1636069968049,
+        "Y": -98.441324567871163
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.AppendDataToGoogleSheetTable",
         "Id": "dd502dc7efea4d698faad187af88a48c",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.AppendDataToGoogleSheetTable",
+        "ShowGeometry": true,
         "Excluded": true,
-        "X": 1775.908489940156,
-        "Y": 275.82288932628649
+        "X": 1802.8303598332759,
+        "Y": 663.719723722174
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.CreateNewSheetWithinGoogleSheet",
         "Id": "2df9d1a2c5e24d2e913b8e7e489e596c",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.CreateNewSheetWithinGoogleSheet",
+        "ShowGeometry": true,
         "Excluded": true,
-        "X": 1786.4408537715419,
-        "Y": 711.4327379499274
+        "X": 1773.6763193098243,
+        "Y": 1094.3687718014603
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.CreateNewGoogleSheet",
         "Id": "59ff1d767adf4676b09bbd3f24b89fad",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.CreateNewGoogleSheet",
+        "ShowGeometry": true,
         "Excluded": true,
-        "X": 1780.954351871178,
-        "Y": 837.66182836025723
+        "X": 1768.1898174094604,
+        "Y": 1220.59786221179
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.WriteDataToGoogleSheet",
         "Id": "634e66319cd442aabd68599e4b8db1b0",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.WriteDataToGoogleSheet",
+        "ShowGeometry": true,
         "Excluded": true,
-        "X": 1741.0535970504723,
-        "Y": 1195.7659617096351
+        "X": 1728.2890625887546,
+        "Y": 1578.7019955611679
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.GetSheetsInGoogleSheet",
         "Id": "f824df7a881048fab068ef8ee3bd105e",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1749.2077937418733,
-        "Y": 1735.3221686267909
+        "Name": "GoogleAPI.GetSheetsInGoogleSheet",
+        "ShowGeometry": true,
+        "Excluded": true,
+        "X": 1736.4432592801556,
+        "Y": 2118.2582024783237
       },
       {
-        "ShowGeometry": true,
-        "Name": "Code Block",
         "Id": "9a087b319bc34ca9b8e1bec57458d56b",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "Code Block",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 2111.1622652090241,
-        "Y": 1765.9677882171918
+        "X": 2098.3977307473065,
+        "Y": 2148.9038220687244
       },
       {
-        "ShowGeometry": true,
-        "Name": "String.ToNumber",
         "Id": "1b5c9f071b5840bfac7a017eb142890e",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String.ToNumber",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 2291.1978350522268,
-        "Y": 1769.7802636780139
+        "X": 2278.4333005905091,
+        "Y": 2152.7162975295469
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.DeleteSheetByIdWithinGoogleSheet",
         "Id": "ccef301eff524155973845a846e44964",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.DeleteSheetByIdWithinGoogleSheet",
+        "ShowGeometry": true,
         "Excluded": true,
-        "X": 2527.5992110988159,
-        "Y": 1757.0365205794787
+        "X": 2514.8346766370983,
+        "Y": 2139.9725544310113
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.DeleteSheetByTitleWithinGoogleSheet",
         "Id": "bc707de8ec2f4c93a63d2f5c5fb15b55",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "GoogleAPI.DeleteSheetByTitleWithinGoogleSheet",
+        "ShowGeometry": true,
         "Excluded": true,
-        "X": 2527.6065674605788,
-        "Y": 1912.629190493434
+        "X": 2514.8420329988612,
+        "Y": 2295.5652243449667
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "f3b8bcf1b2af4342a63dc0e0b57027df",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 2278.5233455662865,
-        "Y": 1958.8964933914187
+        "X": 2265.7588111045688,
+        "Y": 2341.8325272429515
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "115289f5d0aa4a9187bc267bcda26e19",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1676.1526643225691,
-        "Y": 630.67251147250636
+        "X": 1663.3881298608514,
+        "Y": 1013.6085453240391
       },
       {
-        "ShowGeometry": true,
-        "Name": "List Create",
         "Id": "408a241da3b74b9e9d1e3f000a194935",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "List Create",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1458.0590323847061,
-        "Y": 73.149130913727333
+        "X": 1397.6980774952895,
+        "Y": 68.5417987863417
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "936d8d459b0541b6b4e6376c7f947ce0",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 973.85625778124677,
-        "Y": -7.181236480813709
+        "X": 906.75811526042253,
+        "Y": 182.01713500331709
       },
       {
-        "ShowGeometry": true,
-        "Name": "GoogleAPI.BatchAppendDataToGoogleSheet",
         "Id": "13ec0f51d2ec4ef0a8e6fb63d67e780c",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": true,
-        "X": 1743.8961307029881,
-        "Y": -73.211022629269422
+        "Name": "GoogleAPI.BatchAppendDataToGoogleSheet",
+        "ShowGeometry": true,
+        "Excluded": false,
+        "X": 1736.6193405496967,
+        "Y": 144.33386743558404
       },
       {
-        "ShowGeometry": true,
-        "Name": "String",
         "Id": "49c789d144a549978ccc43ab76946c61",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "String",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 951.5586964985614,
-        "Y": 78.137586547529054
+        "X": 900.591944109914,
+        "Y": 249.65709384603792
       },
       {
-        "ShowGeometry": true,
-        "Name": "List Create",
         "Id": "d1ac6cb9781e4d74911018e83522cc71",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "List Create",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1070.658194989699,
-        "Y": 24.001450869739074
+        "X": 1030.5560030942236,
+        "Y": 185.13405202199192
       },
       {
-        "ShowGeometry": true,
-        "Name": "List Create",
         "Id": "e3395d6eab834c48be5141a3b1bf3f21",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "List Create",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1124.2869794135754,
-        "Y": 181.87833004276035
+        "X": 1187.6780738235122,
+        "Y": 66.940970946519371
       },
       {
-        "ShowGeometry": true,
-        "Name": "List Create",
         "Id": "4595ee1325ae4418886cc21d46d74b45",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
+        "Name": "List Create",
+        "ShowGeometry": true,
         "Excluded": false,
-        "X": 1262.4094367117514,
-        "Y": -29.32823004393947
+        "X": 1182.0907040822319,
+        "Y": 184.03988709343196
       }
     ],
     "Annotations": [],
-    "X": -1475.1378040884863,
-    "Y": -1183.0820705700003,
-    "Zoom": 0.92542500150541329
+    "X": -111.70401102015654,
+    "Y": 325.53975837766723,
+    "Zoom": 0.76882586837587763
   }
 }
