@@ -262,3 +262,4 @@ __pycache__/
 
 # Ignore credentials.json
 credentials.json
+BIMOne.GoogleSheets/.refsignored
