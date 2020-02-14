@@ -2,20 +2,20 @@
   "license": "",
   "file_hash": null,
   "name": "BIMOneGoogleAPI",
-  "version": "1.0.1",
-  "description": "BIM One nodes to connect to google API",
+  "version": "1.0.4",
+  "description": "BIM One nodes to connect to the google API, mainly Google Sheets.",
   "group": "",
   "keywords": null,
   "dependencies": [],
   "contents": "",
-  "engine_version": "2.0.3.0",
+  "engine_version": "2.0.3.8811",
   "engine": "dynamo",
   "engine_metadata": "",
   "site_url": "https://github.com/bimone/BIMOne.GoogleSheets",
   "repository_url": "https://github.com/bimone/BIMOne.GoogleSheets",
   "contains_binaries": true,
   "node_libraries": [
-    "BIMOneGoogleAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
-    "BIMOneGoogleAPI.customization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+    "BIMOneGoogleAPI, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null",
+    "BIMOneGoogleAPI.customization, Version=1.0.4.0, Culture=neutral, PublicKeyToken=null"
   ]
 }
