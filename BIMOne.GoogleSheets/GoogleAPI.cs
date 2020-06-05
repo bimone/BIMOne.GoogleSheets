@@ -46,7 +46,7 @@ namespace BIMOne
         {
             if (!File.Exists(credentialsPath))
             {
-                throw new FileNotFoundException("credentials.json not found. Make sure to place it in the Dynamo packages path under BIMOneGoogleAPI\\extra\\credentials.json");
+                throw new FileNotFoundException(String.Format("credentials.json not found at path {0}. Make sure to place it in the Dynamo packages path under BIMOneGoogleAPI\\extra\\credentials.json", credentialsPath));
             }
         }
 
