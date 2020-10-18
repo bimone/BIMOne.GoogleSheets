@@ -87,12 +87,18 @@ namespace BIMOne
         /// 'contains' keyword filter.
         /// </summary>
         /// <param name="filter">The text filter to use when searching for Google Sheets on the Drive.</param>
+        /// <param name="corpora">The corpora determines de scope to search in. 
+        /// Options are: 'user' (files created by, opened by, or shared directly with the user), 'drive' 
+        /// (files in the specified shared drive as indicated by the 'driveId'), 'domain' 
+        /// (files shared to the user's domain), and 'allDrives' (A combination of 'user' and 'drive' for all drives where the user is a member). 
+        /// When able, use 'user' or 'drive', instead of 'allDrives', for efficiency.
+        /// Defaults to "allDrives" for simplicity.</param>
         /// <returns>fileNames, fileIds as lists.</returns>
         /// <search>
         /// google, sheets, drive, read
         /// </search>
         [MultiReturn(new[] { "fileNames", "fileIds" })]
-        public static Dictionary<string, object> GetGoogleSheetsInGoogleDrive(string filter = "")
+        public static Dictionary<string, object> GetGoogleSheetsInGoogleDrive(string filter = "", string corpora = "allDrives")
         {
             GetCredentials();
 
@@ -104,6 +110,12 @@ namespace BIMOne
             FilesResource.ListRequest listRequest = driveService.Files.List();
             listRequest.PageSize = 1000;
             listRequest.Fields = "nextPageToken, files(id, name)";
+            listRequest.Corpora = corpora;
+            if (corpora == "allDrives" || corpora == "drive")
+            {
+                listRequest.IncludeItemsFromAllDrives = true;
+                listRequest.SupportsAllDrives = true;
+            }
             listRequest.Q = String.Format("mimeType='application/vnd.google-apps.spreadsheet' and name contains '{0}'", filter);
             listRequest.OrderBy = "name";
 
