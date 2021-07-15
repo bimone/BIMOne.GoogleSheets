@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading;
 using System.Reflection;
 using Autodesk.DesignScript.Runtime;
+using System.Threading.Tasks;
 
 namespace BIMOne
 {
@@ -71,6 +72,20 @@ namespace BIMOne
                     "user",
                     CancellationToken.None).Result;
             }
+        }
+
+        /// <summary>
+        /// Resets the credentials. Useful when we add new features that require additional permission scopes.
+        /// </summary>
+        /// <returns>bool</returns>
+        /// <search>
+        /// </search>
+        public async static Task<bool> Logout()
+        {
+            var credential = GetCredentials();
+            bool res = await credential.RevokeTokenAsync(CancellationToken.None);
+
+            return res;
         }
 
         /// <summary>
