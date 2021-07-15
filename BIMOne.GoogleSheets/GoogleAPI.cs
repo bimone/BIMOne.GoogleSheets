@@ -16,7 +16,7 @@ namespace BIMOne
     {
         // If modifying these scopes, delete your previously saved credentials
         // at ~/.credentials/sheets.googleapis.com-dotnet-quickstart.json
-        static string[] Scopes = { SheetsService.Scope.DriveReadonly, SheetsService.Scope.Spreadsheets };
+        static string[] Scopes = { SheetsService.Scope.Drive, SheetsService.Scope.Spreadsheets };
         static string ApplicationName = "BIM One Google Sheets";
 
         // Get relative path from DLL to credentials file
@@ -66,7 +66,7 @@ namespace BIMOne
                 new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
             {
                 return credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
+                    GoogleClientSecrets.FromStream(stream).Secrets,
                     Scopes,
                     "user",
                     CancellationToken.None).Result;
@@ -140,6 +140,34 @@ namespace BIMOne
             var d = new Dictionary<string, object>();
             d.Add("fileNames", fileNames);
             d.Add("fileIds", fileIds);
+            return d;
+        }
+
+        /// <summary>
+        /// Copy a Google Sheet.
+        /// </summary>
+        /// <param name="fileId">The unique ID of the Google Sheet to copy.</param>
+        /// <returns>fileName, fileId.</returns>
+        /// <search>
+        /// google, sheets, drive, copy
+        /// </search>
+        [MultiReturn(new[] { "fileName", "fileId" })]
+        public static Dictionary<string, object> CopyGoogleSheet(string fileId)
+        {
+            GetCredentials();
+
+            Google.Apis.Drive.v3.Data.File copiedFile = new Google.Apis.Drive.v3.Data.File();
+
+            // Copy Google Sheet
+            // Define parameters of request.
+            FilesResource.CopyRequest copyRequest = driveService.Files.Copy(copiedFile, fileId);
+            copyRequest.SupportsAllDrives = true;
+
+            Google.Apis.Drive.v3.Data.File file = copyRequest.Execute();
+
+            var d = new Dictionary<string, object>();
+            d.Add("fileName", file.Name);
+            d.Add("fileId", file.Id);
             return d;
         }
 
