@@ -68,7 +68,7 @@
         {
           "Id": "f7e191b4cbd24796b519604925fc6e09",
           "Name": "spreadsheetId",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -77,7 +77,7 @@
         {
           "Id": "ea1c2ffd53354946ae83e49a33dc3b56",
           "Name": "sheet",
-          "Description": "string",
+          "Description": "The name of the sheet within the spreadsheet as string. Ex.: Sheet1\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -86,7 +86,7 @@
         {
           "Id": "0aea706a325249079f7f80163c552511",
           "Name": "range",
-          "Description": "string",
+          "Description": "The range where to read the data from as string. Ex.: A:Z\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -95,7 +95,7 @@
         {
           "Id": "97185c11f0144c1b83ac489694914e0a",
           "Name": "unformattedValues",
-          "Description": "bool\nDefault value : false",
+          "Description": "If true, reads Google sheets as raw values.\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -106,7 +106,7 @@
         {
           "Id": "6666acd1e84c496491565306b0ee0646",
           "Name": "data",
-          "Description": "var",
+          "Description": "data",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -114,7 +114,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.ReadGoogleSheet (spreadsheetId: string, sheet: string, range: string, unformattedValues: bool = false): var[]..[]"
+      "Description": "Reads a specified range of a Google Sheet™.\n\nGoogleAPI.ReadGoogleSheet (spreadsheetId: string, sheet: string, range: string, unformattedValues: bool = false): var[]..[]"
     },
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
@@ -205,7 +205,7 @@
         {
           "Id": "b4e7b664f84944c09febe3a6dd710eeb",
           "Name": "spreadsheetId",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -214,7 +214,7 @@
         {
           "Id": "507e84c8eeb14af28912fe858fa6ff8b",
           "Name": "sheet",
-          "Description": "string",
+          "Description": "The name of the sheet within the spreadsheet as string. Ex.: Sheet1\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -223,7 +223,7 @@
         {
           "Id": "55f7a562bf3345c6b8cd3f23d5ed0bd9",
           "Name": "range",
-          "Description": "string",
+          "Description": "The range where to write the data as string. Ex.: A:Z\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -232,7 +232,7 @@
         {
           "Id": "b4497a09b46c417695fe22c2e2578407",
           "Name": "search",
-          "Description": "string\nDefault value : \"\"",
+          "Description": "An optional search string (if the cell \"contains\" that value it's a match). If present, all rows that contain the search string will be erased.\n\nstring\nDefault value : \"\"",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -243,7 +243,7 @@
         {
           "Id": "0443ee11a0b74e6c8d7862bb6709693d",
           "Name": "clearedRange",
-          "Description": "var",
+          "Description": "clearedRange",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -251,7 +251,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.ClearValuesInRangeGoogleSheet (spreadsheetId: string, sheet: string, range: string, search: string = \"\"): var[]..[]"
+      "Description": "Clears values in the specified range of cells in a Google Sheet™. Only values, not formatting.\n\nGoogleAPI.ClearValuesInRangeGoogleSheet (spreadsheetId: string, sheet: string, range: string, search: string = \"\"): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -262,7 +262,7 @@
         {
           "Id": "d795276d0dfb434d8dfc3082c6a6cd60",
           "Name": "spreadsheetId",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -271,7 +271,7 @@
         {
           "Id": "5918d2c0fa854fd3875a2cc0a6a5aa67",
           "Name": "ranges",
-          "Description": "string[]",
+          "Description": "A list of ranges where to read the data from as string. Ex.: Sheet1!A:Z, Sheet2!A:Z, ...\n\nstring[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -280,7 +280,7 @@
         {
           "Id": "63e88f30eb6c456d9ad5c4bad21d646d",
           "Name": "unformattedValues",
-          "Description": "bool\nDefault value : false",
+          "Description": "If true, reads Google sheets as raw values.\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -291,7 +291,7 @@
         {
           "Id": "ad4439ad72c54650817ca82cd9a74f8b",
           "Name": "ranges",
-          "Description": "var",
+          "Description": "data",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -308,7 +308,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.ReadGoogleSheetMultipleRanges (spreadsheetId: string, ranges: string[], unformattedValues: bool = false): var[]..[]"
+      "Description": "Reads multiple specified ranges of a Google Sheet™.\n\nGoogleAPI.ReadGoogleSheetMultipleRanges (spreadsheetId: string, ranges: string[], unformattedValues: bool = false): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -353,13 +353,22 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "BIMOne.GoogleAPI.GetGoogleSheetsInGoogleDrive@string",
+      "FunctionSignature": "BIMOne.GoogleAPI.GetGoogleSheetsInGoogleDrive@string,string",
       "Id": "f1b659b5fa23478490fbfc5cd6a91d06",
       "Inputs": [
         {
           "Id": "8c7ea9da4a714ad8a91a8e6f8d179b7a",
           "Name": "filter",
-          "Description": "string\nDefault value : \"\"",
+          "Description": "The text filter to use when searching for Google Sheets on the Drive.\n\nstring\nDefault value : \"\"",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "407825755f164ab1bfdb5c0e23a2dac9",
+          "Name": "corpora",
+          "Description": "The corpora determines de scope to search in. Options are: 'user' (files created by, opened by, or shared directly with the user), 'drive' (files in the specified shared drive as indicated by the 'driveId'), 'domain' (files shared to the user's domain), and 'allDrives' (A combination of 'user' and 'drive' for all drives where the user is a member). When able, use 'user' or 'drive', instead of 'allDrives', for efficiency. Defaults to \"allDrives\" for simplicity.\n\nstring\nDefault value : \"allDrives\"",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -370,7 +379,7 @@
         {
           "Id": "730437e90f8f411483338afc30ccdaff",
           "Name": "fileNames",
-          "Description": "var",
+          "Description": "fileNames, fileIds as lists.",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -387,7 +396,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.GetGoogleSheetsInGoogleDrive (filter: string = \"\"): var[]..[]"
+      "Description": "Gets a list of Google Sheets present in a user's Google Drive™ with optional 'contains' keyword filter.\n\nGoogleAPI.GetGoogleSheetsInGoogleDrive (filter: string = \"\", corpora: string = \"allDrives\"): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -398,7 +407,7 @@
         {
           "Id": "23ab2755b9b14ab39e2f3f6fffd28bed",
           "Name": "spreadsheetID",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -409,7 +418,7 @@
         {
           "Id": "05beae63839545a9b6a3a9c71c6ac574",
           "Name": "sheetTitles",
-          "Description": "var",
+          "Description": "sheetTitles",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -418,7 +427,7 @@
         {
           "Id": "6e5275d98f9e42ed8951f2580ef4fecc",
           "Name": "sheetIds",
-          "Description": "var",
+          "Description": "sheetIds",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -426,7 +435,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.GetSheetsInGoogleSheet (spreadsheetID: string): var[]..[]"
+      "Description": "Gets sheet title and ids in a Google Sheet™.\n\nGoogleAPI.GetSheetsInGoogleSheet (spreadsheetID: string): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -437,7 +446,7 @@
         {
           "Id": "9fb2fab14c97461aaa5c27eb9683cf18",
           "Name": "spreadsheetId",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -446,7 +455,7 @@
         {
           "Id": "b4ff937e0fb54c739565aa983cd4bd9d",
           "Name": "sheet",
-          "Description": "string",
+          "Description": "The name of the sheet within the spreadsheet as string. Ex.: Sheet1\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -455,7 +464,7 @@
         {
           "Id": "0b201a97655a4a1299b9a1a172c6b8b7",
           "Name": "range",
-          "Description": "string",
+          "Description": "The range where to try and find a table, as string. Ex.: A:Z\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -464,7 +473,7 @@
         {
           "Id": "911eadb68e9d426183b7edcb8c92b07a",
           "Name": "data",
-          "Description": "var[][]",
+          "Description": "A list of lists containing the data to append to the table in Google Sheets.\n\nvar[][]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -473,7 +482,7 @@
         {
           "Id": "654654f3adba46539803eee22276ae00",
           "Name": "userInputModeRaw",
-          "Description": "bool\nDefault value : false",
+          "Description": "If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -482,7 +491,7 @@
         {
           "Id": "667fa6dea4174dc69a4622bbdbb9622f",
           "Name": "includeValuesInResponse",
-          "Description": "bool\nDefault value : false",
+          "Description": "If true, returns the updated/appended data in the response.\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -493,7 +502,7 @@
         {
           "Id": "dabd3799c313485e829cca8d07749ecf",
           "Name": "spreadsheetID",
-          "Description": "var",
+          "Description": "\"spreadsheetID\", \"updatedValues\", \"range\"",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -519,7 +528,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.AppendDataToGoogleSheetTable (spreadsheetId: string, sheet: string, range: string, data: var[][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
+      "Description": "Appends a nested list of lists to a Google Sheet™. The first table detected in the provided range will be the one that the API appends the new data to.\n\nGoogleAPI.AppendDataToGoogleSheetTable (spreadsheetId: string, sheet: string, range: string, data: var[][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -530,7 +539,7 @@
         {
           "Id": "8db97e10510a497fb40af35df7aabac9",
           "Name": "spreadsheetID",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -539,7 +548,7 @@
         {
           "Id": "49684feaadae4822afb6ece6af6f49b3",
           "Name": "newSheetTitle",
-          "Description": "string",
+          "Description": "The title of the new sheet\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -550,7 +559,7 @@
         {
           "Id": "881d9941127e4faba878878ceb255aa9",
           "Name": "sheetTitle",
-          "Description": "var",
+          "Description": "sheetTitle",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -559,7 +568,7 @@
         {
           "Id": "86259a8caaef451a8ff6eff7fa5e20e3",
           "Name": "spreadsheetId",
-          "Description": "var",
+          "Description": "spreadsheetId",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -567,7 +576,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.CreateNewSheetWithinGoogleSheet (spreadsheetID: string, newSheetTitle: string): var[]..[]"
+      "Description": "Create a new sheet within a Google Sheet™.\n\nGoogleAPI.CreateNewSheetWithinGoogleSheet (spreadsheetID: string, newSheetTitle: string): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -578,7 +587,7 @@
         {
           "Id": "6dbf9833d8c0478d9b00525bc9563a1c",
           "Name": "spreadsheetTitle",
-          "Description": "string",
+          "Description": "The title of the Spreadsheet\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -587,7 +596,7 @@
         {
           "Id": "21fd6cd919ea4d5f8d5e0402e452f9b4",
           "Name": "openInBrowser",
-          "Description": "bool\nDefault value : false",
+          "Description": "Whether or not to open in browser afer successful creation.\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -598,7 +607,7 @@
         {
           "Id": "7c67e5b490084b20a4d42c66fc41f8d0",
           "Name": "spreadsheetId",
-          "Description": "var",
+          "Description": "spreadsheetId",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -607,7 +616,7 @@
         {
           "Id": "373deb42b3f04fffa8fda26de59b5716",
           "Name": "sheetUrl",
-          "Description": "var",
+          "Description": "sheetUrl",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -615,7 +624,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.CreateNewGoogleSheet (spreadsheetTitle: string, openInBrowser: bool = false): var[]..[]"
+      "Description": "Create a new Google Sheet™.\n\nGoogleAPI.CreateNewGoogleSheet (spreadsheetTitle: string, openInBrowser: bool = false): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -626,7 +635,7 @@
         {
           "Id": "97aa9766d7204b88824a269ee5c0f0dd",
           "Name": "spreadsheetId",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -635,7 +644,7 @@
         {
           "Id": "c741dad4040149b6ba9bf18d076b49d4",
           "Name": "sheet",
-          "Description": "string",
+          "Description": "The name of the sheet within the spreadsheet as string. Ex.: Sheet1\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -644,7 +653,7 @@
         {
           "Id": "a7914845faa04a4aa8306ebfab04d3c7",
           "Name": "range",
-          "Description": "string",
+          "Description": "The range where to write the data as string. Ex.: A:Z\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -653,7 +662,7 @@
         {
           "Id": "1067b10f15f34acb8a5a4ba3cb29479c",
           "Name": "data",
-          "Description": "var[][]",
+          "Description": "A list of lists containing the data to write to Google Sheets.\n\nvar[][]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -662,7 +671,7 @@
         {
           "Id": "5dc1ea47556744fabcba3a042bcad892",
           "Name": "userInputModeRaw",
-          "Description": "bool\nDefault value : false",
+          "Description": "If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -671,7 +680,7 @@
         {
           "Id": "f87906365e4c4ee2a47ca1727dd153bb",
           "Name": "includeValuesInResponse",
-          "Description": "bool\nDefault value : false",
+          "Description": "If true, returns the updated/appended data in the response.\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -682,7 +691,7 @@
         {
           "Id": "ad103041b3944a88aede53722c88d9cc",
           "Name": "spreadsheetID",
-          "Description": "var",
+          "Description": "\"spreadsheetID\", \"updatedValues\", \"range\"",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -708,7 +717,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.WriteDataToGoogleSheet (spreadsheetId: string, sheet: string, range: string, data: var[][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
+      "Description": "Writes a nested list of lists to a Google Sheet™.\n\nGoogleAPI.WriteDataToGoogleSheet (spreadsheetId: string, sheet: string, range: string, data: var[][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -719,7 +728,7 @@
         {
           "Id": "8faf29a788a74c7dbe8886679cd37ffa",
           "Name": "spreadsheetID",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -730,7 +739,7 @@
         {
           "Id": "81f731b411274efeb44c4bb041b8a706",
           "Name": "sheetTitles",
-          "Description": "var",
+          "Description": "sheetTitles",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -739,7 +748,7 @@
         {
           "Id": "7961b7aec67e4ee9946adb2c81f859ac",
           "Name": "sheetIds",
-          "Description": "var",
+          "Description": "sheetIds",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -747,7 +756,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.GetSheetsInGoogleSheet (spreadsheetID: string): var[]..[]"
+      "Description": "Gets sheet title and ids in a Google Sheet™.\n\nGoogleAPI.GetSheetsInGoogleSheet (spreadsheetID: string): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
@@ -818,7 +827,7 @@
         {
           "Id": "374f107793214bb08c6575ba1ed028b0",
           "Name": "spreadsheetID",
-          "Description": "string",
+          "Description": "The id of the Spreadsheet\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -827,7 +836,7 @@
         {
           "Id": "1c43de0e1bb949ab93231eae40ee0123",
           "Name": "sheetId",
-          "Description": "int",
+          "Description": "The id of the sheet within the Spreadsheet\n\nint",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -838,7 +847,7 @@
         {
           "Id": "71de1dc5d9d84ce5b3c92670415f507e",
           "Name": "var[]..[]",
-          "Description": "var[]..[]",
+          "Description": "spreadsheetId",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -846,7 +855,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.DeleteSheetByIdWithinGoogleSheet (spreadsheetID: string, sheetId: int): var[]..[]"
+      "Description": "Delete a sheet by id within a Google Sheet™.\n\nGoogleAPI.DeleteSheetByIdWithinGoogleSheet (spreadsheetID: string, sheetId: int): var[]..[]"
     },
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
@@ -857,7 +866,7 @@
         {
           "Id": "ed7f5aa556334608847f79e2d7338926",
           "Name": "spreadsheetID",
-          "Description": "string",
+          "Description": "The id of the Spreadsheet\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -866,7 +875,7 @@
         {
           "Id": "6369aa529552418d985f64cd8a329f44",
           "Name": "sheetTitle",
-          "Description": "string",
+          "Description": "The title of the sheet within the Spreadsheet\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -877,7 +886,7 @@
         {
           "Id": "419f4ab9483749c4b27c24806849f32a",
           "Name": "var[]..[]",
-          "Description": "var[]..[]",
+          "Description": "spreadsheetId",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -885,7 +894,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.DeleteSheetByTitleWithinGoogleSheet (spreadsheetID: string, sheetTitle: string): var[]..[]"
+      "Description": "Delete a sheet by title within a Google Sheet™.\n\nGoogleAPI.DeleteSheetByTitleWithinGoogleSheet (spreadsheetID: string, sheetTitle: string): var[]..[]"
     },
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
@@ -995,7 +1004,7 @@
         {
           "Id": "9bc7814d0f854e208d9ec1f065525377",
           "Name": "spreadsheetId",
-          "Description": "string",
+          "Description": "The ID of the Spreadsheet (long unique identifier as string)\n\nstring",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1004,7 +1013,7 @@
         {
           "Id": "88a9f1894b9e4e1f94967da0110a1fb2",
           "Name": "sheets",
-          "Description": "string[]",
+          "Description": "The names of the sheets within the spreadsheet as a list of strings. Ex.: Sheet1\n\nstring[]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1013,7 +1022,7 @@
         {
           "Id": "867384a7a74d4217aa4a6a06db2a6aed",
           "Name": "data",
-          "Description": "var[][][]",
+          "Description": "A list of lists of lists containing the data to append to the table in Google Sheets. Outter list corresponds to sheets, first inner to rows and innermost to columns within the rows\n\nvar[][][]",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1022,7 +1031,7 @@
         {
           "Id": "abc297fe7ae64798af9cc3ef2d68cefc",
           "Name": "userInputModeRaw",
-          "Description": "bool\nDefault value : false",
+          "Description": "If true, prevents Google sheets from auto-detecting the formatting of the data (useful for dates).\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1031,7 +1040,7 @@
         {
           "Id": "71c7b349a9ed42a3b567e0dc10b42d76",
           "Name": "includeValuesInResponse",
-          "Description": "bool\nDefault value : false",
+          "Description": "If true, returns the updated/appended data in the response.\n\nbool\nDefault value : false",
           "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
@@ -1042,7 +1051,7 @@
         {
           "Id": "d1712b3bab724228852bcb36983e9482",
           "Name": "spreadsheetID",
-          "Description": "var",
+          "Description": "\"spreadsheetID\", \"updatedValues\", \"range\"",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -1059,7 +1068,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "GoogleAPI.BatchAppendDataToGoogleSheet (spreadsheetId: string, sheets: string[], data: var[][][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
+      "Description": "Appends a nested list of lists to a Google Sheet™. The first table detected in the provided range will be the one that the API appends the new data to.\n\nGoogleAPI.BatchAppendDataToGoogleSheet (spreadsheetId: string, sheets: string[], data: var[][][], userInputModeRaw: bool = false, includeValuesInResponse: bool = false): var[]..[]"
     },
     {
       "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
@@ -1179,6 +1188,45 @@
       ],
       "Replication": "Disabled",
       "Description": "Makes a new list out of the given inputs"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "BIMOne.GoogleAPI.CopyGoogleSheet@string",
+      "Id": "5e41c7ae22694e77bef95d700c266734",
+      "Inputs": [
+        {
+          "Id": "957c98cbd2064a06ad2c5a7e27f95db9",
+          "Name": "fileId",
+          "Description": "The unique ID of the Google Sheet to copy.\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c04954eaada94ec19a93df38cb51602a",
+          "Name": "fileName",
+          "Description": "fileName, fileId.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "bdfb500043cb43c6a0b4bc6c048b7f5e",
+          "Name": "fileId",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Copy a Google Sheet.\n\nGoogleAPI.CopyGoogleSheet (fileId: string): var[]..[]"
     }
   ],
   "Connectors": [
@@ -1241,6 +1289,11 @@
       "Start": "898699d2d39e46038e87f4088361a43b",
       "End": "9bc7814d0f854e208d9ec1f065525377",
       "Id": "79a24acacc484fd992fc363b2647094a"
+    },
+    {
+      "Start": "898699d2d39e46038e87f4088361a43b",
+      "End": "957c98cbd2064a06ad2c5a7e27f95db9",
+      "Id": "d9416980f1134bc0addf487ad5693543"
     },
     {
       "Start": "e308788c13694d1a90408e547a403d41",
@@ -1405,7 +1458,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.0.3.8810",
+      "Version": "2.0.4.12684",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -1578,7 +1631,7 @@
         "Id": "59ff1d767adf4676b09bbd3f24b89fad",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
-        "Excluded": false,
+        "Excluded": true,
         "X": 1768.1898174094604,
         "Y": 1220.59786221179
       },
@@ -1731,11 +1784,21 @@
         "Excluded": false,
         "X": 1182.0907040822319,
         "Y": 184.03988709343196
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "GoogleAPI.CopyGoogleSheet",
+        "Id": "5e41c7ae22694e77bef95d700c266734",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1862.4841432601152,
+        "Y": 410.73090197192136
       }
     ],
     "Annotations": [],
-    "X": -10.871493897268465,
-    "Y": -65.592779334375166,
-    "Zoom": 0.37180544893914058
+    "X": 119.77863450751778,
+    "Y": 184.21470672636866,
+    "Zoom": 0.14732487658976851
   }
 }
