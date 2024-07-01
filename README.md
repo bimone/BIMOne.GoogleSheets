@@ -47,4 +47,4 @@ The package provides the following nodes:
 
 
 ## Need help setting it up?
-[Contact us](https://bimone.com/en/ContactUs), we will be glad to help!
+[Contact us](https://bimone.com/en/contact-us/), we will be glad to help!
